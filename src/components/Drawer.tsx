@@ -1,11 +1,11 @@
 'use client'
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface DrawerProps {
     open: boolean;
     handleToggle: () => void;
     width: '50%' | '75%';
-    children: any
+    children: ReactNode
 }
 
 const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width, children}) => {
