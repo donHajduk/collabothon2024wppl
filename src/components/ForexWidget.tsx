@@ -4,6 +4,7 @@ import MapChart from "./mapComponent/shared/map/Map";
 import ForexTable from "@/components/ForexTable";
 import Drawer from "@/components/Drawer";
 import NewsFeed from "./NewsFeed";
+import { ScoreIndicator } from "./ScoreIndicator";
 
 function ForexWidget() {
   const [open, setOpen] = useState(false);
@@ -23,19 +24,18 @@ function ForexWidget() {
           <div className="flex items-center space-x-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-gray-600"
               fill="none"
               viewBox="0 0 24 24"
+              strokeWidth={1.5}
               stroke="currentColor"
+              className="size-7"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M16 12H8m8-4H8m8 8H8m-2 4a2 2 0 002 2h8a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v10a2 2 0 002 2z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
               />
             </svg>
-
             <div className="flex items-center justify-center w-6 h-6 bg-yellow-400 text-black font-bold text-sm rounded-full">
               3
             </div>
@@ -45,36 +45,36 @@ function ForexWidget() {
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <div className="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full">
-                <span className="text-sm font-bold">42%</span>
-              </div>
-              <span className="ml-3">EUR/PLN</span>
+              <ScoreIndicator value={3} />
+              <span className="ml-5">EUR/PLN</span>
             </div>
-            <div className="text-sm font-medium">0,24 EUR / + 0,12 %</div>
+            <div className="text-sm font-medium text-green-500">
+              0,24 EUR / + 0,12 %
+            </div>
           </div>
 
           <div className="border-b"></div>
 
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <div className="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full">
-                <span className="text-sm font-bold">42%</span>
-              </div>
-              <span className="ml-3">EUR/DOL</span>
+              <ScoreIndicator value={1} />
+              <span className="ml-5">EUR/DOL</span>
             </div>
-            <div className="text-sm font-medium">1,03 EUR / + 0,12 %</div>
+            <div className="text-sm font-medium text-green-500">
+              1,03 EUR / + 0,12 %
+            </div>
           </div>
 
           <div className="border-b"></div>
 
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <div className="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full">
-                <span className="text-sm font-bold">42%</span>
-              </div>
-              <span className="ml-3">EUR/CHF</span>
+              <ScoreIndicator value={4} />
+              <span className="ml-5">EUR/CHF</span>
             </div>
-            <div className="text-sm font-medium">1,44 EUR / - 1,12 %</div>
+            <div className="text-sm font-medium text-red-500">
+              1,44 EUR / - 1,12 %
+            </div>
           </div>
         </div>
         <MapChart />
