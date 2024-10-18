@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commerzbank Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f4f6;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      .header {
+        background-color: #013440;
+        padding: 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header img {
+        height: 40px;
+      }
+
+      .header nav a {
+        color: white;
+        margin-right: 20px;
+        text-decoration: none;
+      }
+
+      .main-content {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+      }
+
+      h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+      }
+
+      .section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+
+      .section-item {
+        flex: 1;
+        padding: 20px;
+        background-color: #f9fafb;
+        border-radius: 10px;
+        margin-right: 20px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-item:last-child {
+        margin-right: 0;
+      }
+
+      .section-item h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #013440;
+      }
+
+      .section-item p {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .section-item button {
+        background-color: #ffcc00;
+        color: #013440;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .overview {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .overview-item {
+        flex: 1;
+        padding: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        background-color: #f1f5f9;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .overview-item h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #013440;
+      }
+
+      .overview-item:last-child {
+        margin-right: 0;
+      }
+
+      .circle-chart {
+        height: 200px;
+        width: 200px;
+        background: conic-gradient(
+          #00574b 0% 44%,
+          #ffcc00 44% 56%,
+          #c9d1d3 56% 60%,
+          #6b7f85 60% 90%,
+          #c9d1d3 90% 100%
+        );
+        border-radius: 50%;
+        margin: 20px auto;
+      }
+
+      .account-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .account-list li {
+        margin-bottom: 15px;
+        font-size: 16px;
+      }
+
+      .account-list li span {
+        display: block;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .transactions {
+        margin-top: 30px;
+      }
+
+      .transaction-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .transaction-item p {
+        margin: 0;
+        font-size: 14px;
+        color: #333;
+      }
+
+      .transaction-item small {
+        color: #666;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 40px;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Commerzbank_2022.svg/2560px-Commerzbank_2022.svg.png"
+        alt="Commerzbank Logo"
+      />
+      <nav>
+        <a href="#">Konten & Zahlungsverkehr</a>
+        <a href="#">Finanzierungen & Außenhandel</a>
+        <a href="#">Anlagen & Risikomanagement</a>
+        <a href="#">Services</a>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      <h2>Die wichtigsten Aktivitäten im Überblick</h2>
+      <div class="section">
+        <div class="section-item">
+          <h3>12 neue Aufträge zur Freigabe</h3>
+          <p>GPP</p>
+          <button>Jetzt freigeben</button>
+        </div>
+        <div class="section-item">
+          <h3>3 neue Aufträge zur Freigabe</h3>
+          <p>Auftragsübersicht</p>
+          <button>Jetzt freigeben</button>
+        </div>
+        <div class="section-item">
+          <h3>0 Nachrichten</h3>
+          <p>Postbox</p>
+          <button>Zur Postbox</button>
+        </div>
+      </div>
+
+      <div class="overview">
+        <div class="overview-item">
+          <h3>Gesamtsaldo aller Produkte: 12.345.678,90 €</h3>
+          <div class="circle-chart"></div>
+        </div>
+        <div class="overview-item">
+          <h3>Meist genutzte Konten</h3>
+          <ul class="account-list">
+            <li>
+              Premium Geschäftskonto<br /><span
+                >DE99 5004 0000 1122 3344 55</span
+              >
+              +124.593,00 €
+            </li>
+            <li>
+              Premium Geschäftskonto<br /><span
+                >DE99 5004 0000 1122 3344 55</span
+              >
+              -1.500,00 €
+            </li>
+            <li>
+              Premium Geschäftskonto<br /><span
+                >DE99 5004 0000 1122 3344 55</span
+              >
+              +74.482,00 €
+            </li>
+            <li>
+              Premium Geschäftskonto<br /><span
+                >DE99 5004 0000 1122 3344 55</span
+              >
+              +163.500,00 €
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="transactions">
+        <div class="transaction-item">
+          <p>Ihr Auftrag 123XY wurde freigegeben</p>
+          <small>GPP | 28.09.2023 | 13:45 Uhr</small>
+        </div>
+        <div class="transaction-item">
+          <p>Ihr Auftrag XYZ123 wurde freigegeben</p>
+          <small>GPP | 28.09.2023 | 11:37 Uhr</small>
+        </div>
+      </div>
+    </div>
+
+    <footer>© 2024 Commerzbank AG</footer>
+  </body>
+</html>
