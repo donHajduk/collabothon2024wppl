@@ -4,50 +4,50 @@ import ForexWidget from "@/components/ForexWidget";
 
 export default function Home() {
   return (
-    <main className={"main-content"}>
-      <h2>Die wichtigsten Aktivitäten im Überblick</h2>
+    <main className={"main-content overflow-hidden  "}>
+      <h2>Overview of the Most Important Activities</h2>
       <div className="section">
         <div className="section-item min-h-48">
-          <h3>12 neue Aufträge zur Freigabe</h3>
+          <h3>12 New Orders for Approval</h3>
           <p>GPP</p>
-          <div className="top-right">NEU</div>
-          <button>Jetzt freigeben</button>
+          <div className="top-right">NEW</div>
+          <button>Approve Now</button>
         </div>
         <div className="section-item min-h-48">
-          <h3>3 neue Aufträge zur Freigabe</h3>
-          <p>Auftragsübersicht</p>
-          <div className="top-right">NEU</div>
-          <button>Jetzt freigeben</button>
+          <h3>3 New Orders for Approval</h3>
+          <p>Order Overview</p>
+          <div className="top-right">NEW</div>
+          <button>Approve Now</button>
         </div>
         <div className="overview">
           {/* <div className="overview-item">
-          <h3>Gesamtsaldo aller Produkte: 12.345.678,90 €</h3>
+          <h3>Total Balance of All Products: 12.345.678,90 €</h3>
           <div className="circle-chart"></div>
         </div> */}
 
           {/* <div className="overview-item">
-            <h3>Meist genutzte Konten</h3>
+            <h3>Most Used Accounts</h3>
             <ul className="account-list">
               <li>
-                Premium Geschäftskonto
+                Premium Business Account
                 <br />
                 <span>DE99 5004 0000 1122 3344 55</span>
                 +124.593,00 €
               </li>
               <li>
-                Premium Geschäftskonto
+                Premium Business Account
                 <br />
                 <span>DE99 5004 0000 1122 3344 55</span>
                 -1.500,00 €
               </li>
               <li>
-                Premium Geschäftskonto
+                Premium Business Account
                 <br />
                 <span>DE99 5004 0000 1122 3344 55</span>
                 +74.482,00 €
               </li>
               <li>
-                Premium Geschäftskonto
+                Premium Business Account
                 <br />
                 <span>DE99 5004 0000 1122 3344 55</span>
                 +163.500,00 €
@@ -60,32 +60,32 @@ export default function Home() {
 
       <div className="overview">
         <div className="overview-item">
-          <h3>Gesamtsaldo aller Produkte: 12.345.678,90 €</h3>
+          <h3>Total Balance of All Products: 12.345.678,90 €</h3>
           <div className="circle-chart"></div>
         </div>
         <div className="overview-item">
-          <h3>Meist genutzte Konten</h3>
+          <h3>Most Used Accounts</h3>
           <ul className="account-list">
             <li>
-              Premium Geschäftskonto
+              Premium Business Account
               <br />
               <span>DE99 5004 0000 1122 3344 55</span>
               +124.593,00 €
             </li>
             <li>
-              Premium Geschäftskonto
+              Premium Business Account
               <br />
               <span>DE99 5004 0000 1122 3344 55</span>
               -1.500,00 €
             </li>
             <li>
-              Premium Geschäftskonto
+              Premium Business Account
               <br />
               <span>DE99 5004 0000 1122 3344 55</span>
               +74.482,00 €
             </li>
             <li>
-              Premium Geschäftskonto
+              Premium Business Account
               <br />
               <span>DE99 5004 0000 1122 3344 55</span>
               +163.500,00 €
@@ -95,7 +95,7 @@ export default function Home() {
       </div>
       <div className="transactions">
         <div className="transaction-item">
-          <p>Ihr Auftrag 123XY wurde freigegeben</p>
+          <p>Your order 123XY has been approved</p>
           <small>GPP | 28.09.2023 | 13:45 Uhr</small>
         </div>
       </div>
