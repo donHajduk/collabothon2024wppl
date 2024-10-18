@@ -1,4 +1,3 @@
-import DrawerExample from "@/components/DrawerExample";
 import ForexWidget from "@/components/ForexWidget";
 
 export default function Home() {
