@@ -1,3 +1,5 @@
+import DrawerExample from "@/components/DrawerExample";
+
 export default function Home() {
     return (
         <main className={"main-content"}>
@@ -68,6 +70,7 @@ export default function Home() {
                     <small>GPP | 28.09.2023 | 11:37 Uhr</small>
                 </div>
             </div>
+            <DrawerExample/>
         </main>
     );
 }
