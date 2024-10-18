@@ -29,9 +29,13 @@ const DrawerExample = () => {
                 Otwórz Drawer 2
             </button>
 
-            <Drawer open={isDrawerOpen} handleToggle={handleToggle} width="50%"/>
+            <Drawer open={isDrawerOpen} handleToggle={handleToggle} width="50%">
+                text 2
+            </Drawer>
 
-             <Drawer open={isDrawerOpen2} handleToggle={handleToggle2} width="75%"/>
+            <Drawer open={isDrawerOpen2} handleToggle={handleToggle2} width="75%">
+                Text
+            </Drawer>
 
         </>
     )

@@ -5,9 +5,10 @@ interface DrawerProps {
     open: boolean;
     handleToggle: () => void;
     width: '50%' | '75%';
+    children: any
 }
 
-const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width}) => {
+const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width, children}) => {
     const layerWidth = width === '50%' ? 'w-1/2' : 'w-3/4';
 
     return (
@@ -35,7 +36,8 @@ const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width}) => {
                     </button>
                     <div className="mt-4">
                         {/* Zawartość drawera */}
-                        <p>To jest treść drawera.</p>
+                        {/*<p>To jest treść drawera.</p>*/}
+                        {children}
                     </div>
                 </div>
             </div>
