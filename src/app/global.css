@@ -55,6 +55,7 @@ h2 {
 
 .section-item {
   flex: 1;
+  filter: blur(4px);
   padding: 20px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -111,6 +112,8 @@ h2 {
 .overview-item {
   flex: 1;
   padding: 20px;
+  filter: blur(4px);
+  z-index: -100;
   margin-right: 20px;
   border-radius: 10px;
   background-color: #ffffff;

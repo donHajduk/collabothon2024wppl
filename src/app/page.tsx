@@ -24,7 +24,8 @@ export default function Home() {
           <h3>Gesamtsaldo aller Produkte: 12.345.678,90 €</h3>
           <div className="circle-chart"></div>
         </div> */}
-          <div className="overview-item">
+
+          {/* <div className="overview-item">
             <h3>Meist genutzte Konten</h3>
             <ul className="account-list">
               <li>
@@ -52,7 +53,7 @@ export default function Home() {
                 +163.500,00 €
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
         <ForexWidget />
       </div>
@@ -97,12 +98,7 @@ export default function Home() {
           <p>Ihr Auftrag 123XY wurde freigegeben</p>
           <small>GPP | 28.09.2023 | 13:45 Uhr</small>
         </div>
-        <div className="transaction-item">
-          <p>Ihr Auftrag XYZ123 wurde freigegeben</p>
-          <small>GPP | 28.09.2023 | 11:37 Uhr</small>
-        </div>
       </div>
-      <DrawerExample />
     </main>
   );
 }

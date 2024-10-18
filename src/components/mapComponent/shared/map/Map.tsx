@@ -26,12 +26,29 @@ const MapChart = () => {
     });
   }, []);
 
+  const [rotation, setRotation] = useState(0);
+
+  useEffect(() => {
+    //Implementing the setInterval method
+    const interval = setInterval(() => {
+      if (rotation === 360) {
+        setRotation(0);
+      }
+      setRotation(rotation + 1);
+    }, 30);
+
+    //Clearing the interval
+    return () => clearInterval(interval);
+  }, [rotation]);
+
   return (
     <ComposableMap
+      className="absolute top-3 "
       fill="#333333"
+      opacity={0.05}
       projectionConfig={{
-        rotate: [-10, 0, 0],
-        scale: 147,
+        rotate: [rotation, 0, 0],
+        scale: 120,
       }}
     >
       <Sphere stroke="#E4E5E6" strokeWidth={0.5} id={""} fill={""} />
