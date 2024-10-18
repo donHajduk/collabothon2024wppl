@@ -81,27 +81,11 @@ function ForexWidget() {
       </div>
       {/* Drawer z konfiguracją */}
       <Drawer open={open} handleToggle={toggleDrawer} width={"50%"}>
-        <NewsFeed/>
-        <ForexTable />
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/r0lDBzKCGAM?si=d--pJGZdL-tp25rS&amp;start=25"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
-        <ForexTable />
-        <ForexTable />
-        <ForexTable />
-        <ForexTable />
+        <NewsFeed />
         <ForexTable />
       </Drawer>
     </>
   );
-           
 }
 
 export default ForexWidget;
