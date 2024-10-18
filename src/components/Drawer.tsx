@@ -1,12 +1,15 @@
+'use client'
 import React from 'react';
 
 interface DrawerProps {
     open: boolean;
     handleToggle: () => void;
-    width?: '50%' | '75%';
+    width: '50%' | '75%';
 }
 
-const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width = '50%' }) => {
+const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width}) => {
+    const layerWidth = width === '50%' ? 'w-1/2' : 'w-3/4';
+
     return (
         <>
             {/* Overlay */}
@@ -21,7 +24,7 @@ const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width = '50%' }) =>
             <div
                 className={`fixed inset-y-0 right-0 bg-white shadow-lg h-full transition-transform duration-300 ${
                     open ? 'translate-x-0' : 'translate-x-full'
-                } ${width === '50%' ? 'w-1/2' : 'w-3/4'}`}
+                } ${layerWidth}`}
             >
                 <div className="p-4">
                     <button
