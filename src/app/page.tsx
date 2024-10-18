@@ -5,19 +5,19 @@ export default function Home() {
         <main className={"main-content"}>
             <h2>Die wichtigsten Aktivitäten im Überblick</h2>
             <div className="section">
-                <div className="section-item">
+                <div className="section-item min-h-48">
                     <h3>12 neue Aufträge zur Freigabe</h3>
                     <p>GPP</p>
                     <div className="top-right">NEU</div>
                     <button>Jetzt freigeben</button>
                 </div>
-                <div className="section-item">
+                <div className="section-item min-h-48">
                     <h3>3 neue Aufträge zur Freigabe</h3>
                     <p>Auftragsübersicht</p>
                     <div className="top-right">NEU</div>
                     <button>Jetzt freigeben</button>
                 </div>
-                <div className="section-item">
+                <div className="section-item min-h-48">
                     <h3>0 Nachrichten</h3>
                     <p>Postbox</p>
                     <button>Zur Postbox</button>

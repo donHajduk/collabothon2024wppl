@@ -42,8 +42,6 @@ export default function RootLayout({
                 <a href="#">Finanzierungen & Außenhandel</a>
                 <a href="#">Anlagen & Risikomanagement</a>
                 <a href="#">Services</a>
-                <a href="#">Meine Daten</a>
-                <a href="#">Hilfe</a>
             </nav>
         </div>
 
