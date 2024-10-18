@@ -33,11 +33,11 @@ const currencyNews: Map<string, string[]> = new Map([
     ]],
   ]);
 
-  export const getCurrencyNews = (currency: string): string[] | string => {
+  export const getCurrencyNews = (currency: string): string[]  => {
     const news = currencyNews.get(currency);
-    if (news) {
-      return news;
+    if(news) {
+        return news;
     } else {
-      return `No news available for currency: ${currency}`;
+        return [];
     }
   }

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import MapChart from "./mapComponent/shared/map/Map";
 import ForexTable from "@/components/ForexTable";
 import Drawer from "@/components/Drawer";
+import NewsFeed from "./NewsFeed";
 
 function ForexWidget() {
   const [open, setOpen] = useState(false);
@@ -80,6 +81,7 @@ function ForexWidget() {
       </div>
       {/* Drawer z konfiguracją */}
       <Drawer open={open} handleToggle={toggleDrawer} width={"50%"}>
+        <NewsFeed/>
         <ForexTable />
         <iframe
           width="560"
@@ -99,6 +101,7 @@ function ForexWidget() {
       </Drawer>
     </>
   );
+           
 }
 
 export default ForexWidget;

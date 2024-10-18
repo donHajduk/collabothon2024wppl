@@ -119,7 +119,7 @@ const ForexTable: React.FC = () => {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-4xl overflow-x-auto">
+        <div className="bg-white w-full max-w-4xl overflow-x-auto m-5">
             <h2 className="text-2xl font-semibold mb-4">Forex Rates to EUR</h2>
             <table className="min-w-full table-auto">
                 <thead>

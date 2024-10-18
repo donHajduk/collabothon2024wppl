@@ -1,5 +1,4 @@
 import DrawerExample from "@/components/DrawerExample";
-import MapChart from "@/components/mapComponent/shared/map/Map";
 import ForexWidget from "@/components/ForexWidget";
 
 export default function Home() {
