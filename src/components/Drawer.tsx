@@ -15,7 +15,7 @@ const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width, children}) =
         <>
             {/* Overlay */}
             <div
-                className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ${
+                className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-10 ${
                     open ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`}
                 onClick={handleToggle}
@@ -23,7 +23,7 @@ const Drawer: React.FC<DrawerProps> = ({ open, handleToggle, width, children}) =
 
             {/* Drawer */}
             <div
-                className={`fixed inset-y-0 right-0 bg-white shadow-lg h-full transition-transform duration-300 ${
+                className={`fixed inset-y-0 right-0 bg-white shadow-lg h-full transition-transform duration-300 z-20 ${
                     open ? 'translate-x-0' : 'translate-x-full'
                 } ${layerWidth}`}
             >
