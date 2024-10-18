@@ -4,6 +4,7 @@ import Drawer from "@/components/Drawer";
 import { getExchangeRateBetweenCurrencies } from "@/service/exchangeRateApiRead.service";
 import { getCurrencyPairRateRecentChanges, getCurrencyPairScore } from "@/service/scoreCalculation.service";
 import { getCurrencyNews } from "@/service/newsFeed.service";
+import { getAllAccounts } from "@/service/accountsBalanceRead.service";
 
 
 const DrawerExample = () => {
@@ -17,6 +18,7 @@ const DrawerExample = () => {
         console.log(getCurrencyPairScore("EUR","PLN"));
         console.log(getCurrencyPairRateRecentChanges("EUR","PLN"));
         console.log(getCurrencyNews("USD"));
+        console.log(getAllAccounts());
         setIsDrawerOpen(!isDrawerOpen);
     };
     const handleToggle2 = () => {
