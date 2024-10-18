@@ -22,4 +22,4 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Learn More
 
-WPPL 2024
+collabothon WPPL 2024
