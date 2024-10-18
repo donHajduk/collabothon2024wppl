@@ -1,6 +1,9 @@
 'use client'
 import React, {useState} from "react";
 import Drawer from "@/components/Drawer";
+import { getExchangeRateBetweenCurrencies } from "@/service/exchangeRateApiRead.service";
+import { getCurrencyPairRateRecentChanges, getCurrencyPairScore } from "@/service/scoreCalculation.service";
+import { getCurrencyNews } from "@/service/newsFeed.service";
 
 
 const DrawerExample = () => {
@@ -8,7 +11,12 @@ const DrawerExample = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isDrawerOpen2, setIsDrawerOpen2] = useState(false);
 
-    const handleToggle = () => {
+    const handleToggle = async () => {
+        const rate = await getExchangeRateBetweenCurrencies("EUR","PLN");
+        console.log(rate);
+        console.log(getCurrencyPairScore("EUR","PLN"));
+        console.log(getCurrencyPairRateRecentChanges("EUR","PLN"));
+        console.log(getCurrencyNews("USD"));
         setIsDrawerOpen(!isDrawerOpen);
     };
     const handleToggle2 = () => {
