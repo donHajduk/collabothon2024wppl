@@ -25,13 +25,6 @@ export default function Home() {
           <div className="circle-chart"></div>
         </div> */}
           <div className="overview-item">
-            <h3>Gesamtsaldo aller Produkte: 12.345.678,90 €</h3>
-            <button className="layout-button">Go to details</button>
-
-            {/* <div className="circle-chart"></div> */}
-            <MapChart />
-          </div>
-          <div className="overview-item">
             <h3>Meist genutzte Konten</h3>
             <ul className="account-list">
               <li>

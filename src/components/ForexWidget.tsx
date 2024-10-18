@@ -1,4 +1,5 @@
 import React from "react";
+import MapChart from "./mapComponent/shared/map/Map";
 
 function ForexWidget() {
   return (
@@ -62,6 +63,7 @@ function ForexWidget() {
           <div className="text-sm font-medium">1,44 EUR / - 1,12 %</div>
         </div>
       </div>
+      <MapChart />
     </div>
   );
 }

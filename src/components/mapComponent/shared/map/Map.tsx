@@ -15,7 +15,7 @@ const geoUrl = "/features.json";
 
 const colorScale = scaleLinear()
   .domain([0.29, 0.68])
-  .range(["#ffedea" as any, "#ff5233" as any]);
+  .range(["#ffedea" as any, "#ffcc00" as any]);
 
 const MapChart = () => {
   const [data, setData] = useState<any[]>([]);
