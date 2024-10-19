@@ -28,6 +28,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
     });
   
     const handleCheckboxChange = (method: string) => {
+        console.log(method)
       setNotificationMethods((prevMethods) => ({
         ...prevMethods,
         [method]: !prevMethods[method],
@@ -46,13 +47,14 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
         //remove subscription
         setSubscriptions(subscriptions.filter(sub => sub.currency != selectedCurrency))
       } else {
+        console.log("selected methods:", selectedMethods)
         //add subscription
         const newsubscription = {
             isActive: true,
             currency: selectedCurrency,
             percentageFall: percentageFall,
             exchangeRateFall: exchangeRateFall,
-            notificationMethod: []
+            notificationMethod: selectedMethods
         }
     
         setSubscriptions([...subscriptions, newsubscription]);
@@ -63,21 +65,25 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
 
       console.log(subscriptions);
 
-    
-      console.log('Selected Notification Methods:', selectedMethods);
       setSelectedCurrency(null);
 
     };
 
     const openModal = (currency: string) => {
-        const subscription = subscriptions.find(subscription => subscription.currency == currency);
-        console.log(subscription)
+        console.log("onclick openmodal")
+        const subscription: Subscription | undefined = subscriptions.find(subscription => subscription.currency == currency);
+        console.log("openmodal subscription", subscription);
         setPercentageFall(subscription ? subscription.percentageFall:'');
         setExchangeRate(subscription ? subscription.exchangeRateFall:'');
         if(subscription) {
-            setNotificationMethods({sms: subscription.notificationMethod.includes('sms'),
-                    mail: false,
-                    push: false
+            console.log(subscription)
+            const flag1 = subscription.notificationMethod.find(elem => elem =="sms");
+            const flag2 = subscription.notificationMethod.find(elem => elem =="mail");
+            const flag3 = subscription.notificationMethod.find(elem => elem =="push");
+            console.log("flagi",flag1, flag2, flag3);
+            setNotificationMethods({sms: flag1,
+                    mail: flag2,
+                    push: flag3
             })
         } else {
             setNotificationMethods({
@@ -231,6 +237,11 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
       <label className="inline-flex items-center">
         <input
           type="checkbox"
+          checked={notificationMethods.sms}
+          onClick={() => {
+            console.log("onSubmit sms");
+            handleCheckboxChange("sms")
+        }}
           className="form-checkbox h-5 w-5 text-indigo-600"
         />
         <span className="ml-2 text-gray-700">SMS</span>
@@ -238,6 +249,8 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
       <label className="inline-flex items-center">
         <input
           type="checkbox"
+          checked={notificationMethods.mail}
+          onClick={() => handleCheckboxChange("mail")}
           className="form-checkbox h-5 w-5 text-indigo-600"
         />
         <span className="ml-2 text-gray-700">Mail</span>
@@ -245,6 +258,8 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
       <label className="inline-flex items-center">
         <input
           type="checkbox"
+          checked={notificationMethods.push}
+          onClick={() => handleCheckboxChange("push")}
           className="form-checkbox h-5 w-5 text-indigo-600"
         />
         <span className="ml-2 text-gray-700">Push</span>
