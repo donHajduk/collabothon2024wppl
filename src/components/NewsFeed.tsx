@@ -29,7 +29,7 @@ const NewsFeed: React.FC = () => {
                   <div className="h-32 bg-gray-300">
                     {/* Image placeholder */}
                     <img
-                        src={`https://picsum.photos/seed/${Math.random() * 10}/200/300`}
+                        src={`${element.image}`}
                         alt={element.title}
                         className="object-cover w-full h-full"
                     />

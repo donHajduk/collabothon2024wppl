@@ -3,4 +3,5 @@ export type Article = {
     relatedCurrency: string;
     title: string;
     content: string;
+    image: string;
   };
