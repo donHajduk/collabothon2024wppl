@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode, useEffect } from "react";
 
 interface DrawerProps {
@@ -6,8 +7,6 @@ interface DrawerProps {
   width: "50%" | "75%";
   children: ReactNode;
 }
-("use client");
-import React, { useEffect } from "react";
 
 const Drawer: React.FC<DrawerProps> = ({
   open,

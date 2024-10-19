@@ -14,6 +14,8 @@ import { Option } from "react-tailwindcss-select/dist/components/type";
 // ];
 
 interface AppOption extends Option {
+  value: Key | null | undefined;
+  label: any;
   flag: string;
 }
 
@@ -72,16 +74,19 @@ const CurrencySearch = () => {
     setCountry(value);
   };
 
-    return <>
-        <form className="max-w-sm mx-auto flex items-center space-x-4 py-4">
-            <select id="underline_select"
-                    value={"EUR"}
-                    disabled={true}
-                    className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                <option value="EUR" selected>
-                    EUR
-                </option>
-            </select>
+  return (
+    <>
+      <form className="max-w-sm mx-auto flex items-center space-x-4 py-4">
+        <select
+          id="underline_select"
+          value={"EUR"}
+          disabled={true}
+          className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        >
+          <option value="EUR" selected>
+            EUR
+          </option>
+        </select>
 
         <button>
           <svg
