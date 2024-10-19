@@ -36,8 +36,6 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
   
     const handleSubmit = () => {
       
-        //TODO: zmiana stanu
-
       const selectedMethods = Object.keys(notificationMethods).filter(
         (method) => notificationMethods[method as keyof typeof notificationMethods]
       );
@@ -65,8 +63,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
 
       console.log(subscriptions);
 
-      console.log('percentageFall:', percentageFall);
-      console.log('exchangeRateFall:', exchangeRateFall);
+    
       console.log('Selected Notification Methods:', selectedMethods);
       setSelectedCurrency(null);
 
