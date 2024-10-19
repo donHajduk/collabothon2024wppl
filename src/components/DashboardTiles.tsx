@@ -166,7 +166,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
         return (
           <div
             key={index}
-            className="bg-white px-0 py-2  transition-shadow relative flex border-b-[1px]"
+            className="bg-white px-0 py-2  transition-shadow relative flex border-b-[1px] pb-4"
             style={{ width: "100%", height: "100%" }}
           >
             <div className="px-2 py-6">
@@ -221,7 +221,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
               </div>
 
               <div className=" grid grid-cols-12 gap-3 justify-end -mt-10">
-                <div className="col-span-6"></div>
+                <div className="col-span-12 md:col-span-6 mt-6"></div>
                 {/* Loan Button (Primary) */}
                 <TileButton text={"Loan"} />
                 <TileButton text={"Forex"} />
