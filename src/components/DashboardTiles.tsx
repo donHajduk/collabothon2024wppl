@@ -13,7 +13,7 @@ interface DashboardTilesProps {
 
 const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
     return (
-        <div className="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1">
+        <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-1 md:grid-cols-1 sm:grid-cols-1">
             {accounts.map((account, index) => {
                 // Calculate the change
                 const change = account.rate - account.previousRate;
@@ -22,7 +22,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
                 return (
                     <div
                         key={index}
-                        className="bg-white p-8 rounded-lg shadow-md transition-shadow relative"
+                        className="bg-white px-8 py-2 rounded-lg  transition-shadow relative"
                         style={{ width: '100%', height: '100%' }}
                     >
                         <div className="flex items-center justify-between mb-2">
@@ -72,26 +72,28 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
                             )}
                         </div>
 
-                        <div className="space-y-2 grid grid-cols-2 gap-2">
+                        <div className=" grid grid-cols-6 gap-2 justify-end -mt-8">
+                            <div className="col-span-3"></div>
                             <div
-                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 bg-[#fbcb2d] col-span-2"
+                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 "
                             >
                                 Loan
                                 <span className="ml-2">→</span>
                             </div>
                             <div
-                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
+                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105  "
                             >
                                 Exchange
                                 <span className="ml-2">→</span>
                             </div>
                             <div
-                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
+                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 "
                             >
                                 Forex
                                 <span className="ml-2">→</span>
                             </div>
                         </div>
+                         <hr className={'mt-4'}/>
                     </div>
                 );
             })}
