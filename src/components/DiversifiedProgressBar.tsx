@@ -11,16 +11,39 @@ interface DiversifiedProgressBarProps {
     colorPalette?: string[];  // Optional color palette prop
 }
 
+// Helper function to return currency symbol based on currency code
+const getCurrencySymbol = (currency: string): string => {
+    switch (currency) {
+        case 'USD':
+            return '$';
+        case 'EUR':
+            return '€';
+        case 'GBP':
+            return '£';
+        case 'JPY':
+            return '¥';
+        case 'CAD':
+            return 'C$';
+        case 'AUD':
+            return 'A$';
+        case 'CHF':
+            return 'Fr';
+        case 'CNY':
+            return '¥';
+        default:
+            return currency;  // Return the currency code as fallback
+    }
+};
+
 const DiversifiedProgressBar: React.FC<DiversifiedProgressBarProps> = ({ accounts, colorPalette }) => {
     // Default accessible color palette
     const defaultColorPalette = [
-        '#00796B', // Teal (Accessible and has good contrast)
-        '#FBC02D', // Yellow (More vibrant yellow for better contrast)
-        '#455A64', // Dark Gray-Blue (Darker for contrast)
-        '#CFD8DC', // Light Gray (Contrast with dark elements)
-        '#FFB300', // Bright Yellow (Accessible contrast)
-        '#90A4AE', // Light Blue-Gray (Alternative light color)
-        '#263238', // Very Dark Blue-Gray (Strong contrast for darker tones)
+        '#3a7e8a', // Ocean Petrol (Closest match to Teal)
+        '#93c1b4', // Yellow (Exact match)
+        '#d5dbb6', // Mint (Closest match to Light Blue-Gray)
+        '#d6c18b', // Mint (Closest match to Light Blue-Gray)
+        '#bf925e', // Mint (Closest match to Light Blue-Gray)
+        '#9b5c2f', // Mint (Closest match to Light Blue-Gray)
     ];
 
     // Use the provided colorPalette prop, or fallback to the default palette
@@ -35,27 +58,49 @@ const DiversifiedProgressBar: React.FC<DiversifiedProgressBarProps> = ({ account
     const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0);
 
     // Map accounts data to sections with percentage and colors
-    const sections = accounts.map((account, index) => ({
-        label: account.currency,
-        value: (account.balance / totalBalance) * 100, // Percentage of the total
-        color: getColor(index), // Get color based on index
-    }));
+    const sections = accounts.map((account, index) => {
+        const sign = getCurrencySymbol(account.currency);
+        const symbol = account.currency;
+        return {
+            label: `${symbol} ${account.balance.toFixed(0)} ${sign}`,
+            value: (account.balance / totalBalance) * 100, // Percentage of the total
+            color: getColor(index), // Get color based on index
+        };
+    });
 
     return (
         <div className="p-4">
             <h1 className="text-2xl font-bold mb-4">Currency Diversification</h1>
-            <div className="border border-gray-300 rounded-full overflow-hidden h-10 flex w-full">
+
+            <div className="border border-gray-300 rounded-full overflow-hidden h-8 flex w-full">
                 {sections.map((section, index) => (
                     <div
                         key={index}
                         title={`${section.label}: ${section.value.toFixed(2)}%`}
-                        className={`flex items-center justify-center text-white text-md font-bold`}
+                        className={`flex items-center justify-center text-[002ec3] text-sm font-bold`}
                         style={{
                             width: `${section.value}%`,
                             backgroundColor: section.color,
                         }}
                     >
-                        {section.value > 5 ? `${section.label}` : ''}
+                        {/* Optionally display currency symbol inside the bar */}
+                    </div>
+                ))}
+            </div>
+
+            {/* Legend Section */}
+            <div className="mt-4 grid grid-flow-col grid-rows-2 gap-4">
+                {sections.map((section, index) => (
+                    <div
+                        key={index}
+                        className="flex items-center text-gray-700"
+                    >
+                        <span
+                            className="h-4 w-4 rounded-full"
+                            style={{ backgroundColor: section.color }}
+                        />
+                        <span className="ml-2 text-sm font-semibold">{section.label}</span>
+                        <span className="ml-2 text-sm">({section.value.toFixed(2)}%)</span>
                     </div>
                 ))}
             </div>

@@ -26,7 +26,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
                         style={{ width: '100%', height: '100%' }}
                     >
                         <div className="flex items-center justify-between mb-2">
-                            <div className="text-xl font-bold text-gray-700 flex gap-4">
+                            <div className="text-2xl font-bold text-gray-700 flex gap-4">
                                 EUR/{account.currency}
 
                                 <span className="bg-green-100 text-green-600 font-semibold py-1 px-3 rounded-full text-xs">
@@ -52,7 +52,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
 
                         <div className="flex items-center mb-4">
                             {/* Current rate */}
-                            <span className="text-2xl font-bold text-black">{account.rate.toFixed(4)}</span>
+                            <span className="text-xl font-bold text-black">{account.rate.toFixed(4)}</span>
 
                             {/* Change in value */}
                             <span

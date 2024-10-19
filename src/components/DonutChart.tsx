@@ -64,7 +64,7 @@ const DonutChart = () => {
             pointFormat: '',
         },
         legend: {
-            enabled: true,
+            enabled: false,
             layout: "vertical",
             align: "right",
             verticalAlign: 'middle',
@@ -82,7 +82,7 @@ const DonutChart = () => {
                 cursor: 'pointer',
                 dataLabels: [
                     {
-                        enabled: true,
+                        enabled: false,
                         distance: 20,
                         format: '{point.name}',
                     },
@@ -99,7 +99,14 @@ const DonutChart = () => {
             },
         },
         // Add custom colors here
-        colors: ['#223A4C', '#A3CCB2', '#D1B388', '#846649', '#EFE2CE'],
+        colors: [
+            '#3a7e8a', // Ocean Petrol (Closest match to Teal)
+            '#93c1b4', // Yellow (Exact match)
+            '#d5dbb6', // Mint (Closest match to Light Blue-Gray)
+            '#d6c18b', // Mint (Closest match to Light Blue-Gray)
+            '#bf925e', // Mint (Closest match to Light Blue-Gray)
+            '#9b5c2f', // Mint (Closest match to Light Blue-Gray)
+        ],
         series: [
             {
                 name: 'Balance',
@@ -118,28 +125,35 @@ const DonutChart = () => {
         }
     };
 
+    const defaultColorPalette = [
+        '#3a7e8a', // Ocean Petrol (Closest match to Teal)
+        '#93c1b4', // Yellow (Exact match)
+        '#d5dbb6', // Mint (Closest match to Light Blue-Gray)
+        '#d6c18b', // Mint (Closest match to Light Blue-Gray)
+        '#bf925e', // Mint (Closest match to Light Blue-Gray)
+        '#9b5c2f', // Mint (Closest match to Light Blue-Gray)
+    ];
+
     return (
-        <figure className="grid grid-cols-3">
+        <figure className="grid grid-cols-4">
             <div className={"col-span-2"}>
                 <HighchartsReact
                     containerProps={{
                         style: {
-                            height: "100%",
-                            width: "100%",
                         },
                     }}
                     highcharts={Highcharts} options={options}/>
             </div>
-            {/*<div className={"grid grid-cols-1 py-16 gap-1"}>*/}
-            {/*    {*/}
-            {/*        accounts.map(*/}
-            {/*            ({balance, iban, currency}) =>*/}
-            {/*                (*/}
-            {/*                    <p key={iban} className={"font-bold"}>{balance} {currency}</p>*/}
-            {/*                )*/}
-            {/*        )*/}
-            {/*    }*/}
-            {/*</div>*/}
+            <div className={"grid grid-cols-1 py-16 gap-1"}>
+                {
+                    accounts.map(
+                        ({balance, iban, currency}) =>
+                            (
+                                <p key={iban} className={"font-bold"}>{balance} {currency}</p>
+                            )
+                    )
+                }
+            </div>
         </figure>
     );
 };
