@@ -160,7 +160,7 @@ function ForexWidget() {
                             valueChange={value.change}
                             comparedCurrency={value.currency}
                             currencyValue={value.rate}
-                            currencyAccountBalance={value.balance ?? 0}
+                            currencyAccountBalance={value.balance?.toFixed(2) ?? 0}
                         />
                         {position !== products.length -1  && <div className="border-b"/>}
                     </>

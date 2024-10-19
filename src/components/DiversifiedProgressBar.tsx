@@ -54,15 +54,17 @@ const DiversifiedProgressBar: React.FC<DiversifiedProgressBarProps> = ({ account
         return colors[index % colors.length];
     };
 
-    // Calculate total balance
-    const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0);
+    const sortedAccounts = accounts.sort((a, b) => b.balance - a.balance);
 
-    // Map accounts data to sections with percentage and colors
-    const sections = accounts.map((account, index) => {
+    // Calculate total balance
+    const totalBalance = sortedAccounts.reduce((sum, account) => sum + account.balance, 0);
+
+    // Map sortedAccounts data to sections with percentage and colors
+    const sections = sortedAccounts.map((account, index) => {
         const sign = getCurrencySymbol(account.currency);
         const symbol = account.currency;
         return {
-            label: `${symbol} ${account.balance.toFixed(0)} ${sign}`,
+            label: `${symbol} ${account.balance.toFixed(2)} ${sign}`,
             value: (account.balance / totalBalance) * 100, // Percentage of the total
             color: getColor(index), // Get color based on index
         };
