@@ -225,11 +225,12 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
 
   return (
     <div className="grid grid-cols-1 gap-4 p-4 px-6 lg:grid-cols-1 md:grid-cols-1 sm:grid-cols-1">
-      {accounts.map((account, index) => {
-        // Calculate the change
-        const change = account.rate - account.previousRate;
-        const percentageChange = (change / account.previousRate) * 100;
-        const sub = subscriptions.find((p) => p.currency === account.currency);
+      <h1 className="text-3xl font-bold mb-2">Current Exchange Rates & Trends</h1>
+            {accounts.map((account, index) => {
+                // Calculate the change
+                const change = account.rate - account.previousRate;
+                const percentageChange = (change / account.previousRate) * 100;
+                const sub = subscriptions.find((p) => p.currency === account.currency);
 
         const defineChart = () => {
           switch (account.recommendationScore) {
@@ -251,14 +252,14 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
         return (
           <div
             key={index}
-            className="bg-white px-0 py-2  transition-shadow relative flex border-b-[1px] pb-4"
+            className="bg-white px-0 py-2  transition-shadow relative flex border-b-[1px] last:border-0 pb-4"
             style={{ width: "100%", height: "100%" }}
           >
             <div className="px-2">{defineChart()}</div>
 
             <div className={"ml-4"}>
               <div className="flex items-center justify-between mb-2">
-                <div className="text-2xl font-bold text-gray-700 flex gap-4">
+                <div className="text-xl font-bold flex gap-4">
                   EUR/{account.currency}
                   {/*<span className="bg-green-100 text-green-600 font-semibold py-1 px-3 rounded-full text-xs">*/}
                   {/*    Buy*/}
@@ -282,7 +283,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
 
               <div className="flex items-center mb-4">
                 {/* Current rate */}
-                <span className="text-xl font-bold text-black">
+                <span className="text-lg font-bold text-black">
                   {account.rate?.toFixed(4)}
                 </span>
 
@@ -307,9 +308,9 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
               <div className=" grid grid-cols-12 gap-3 justify-end -mt-10">
                 <div className="col-span-12 md:col-span-6 mt-6"></div>
                 {/* Loan Button (Primary) */}
+                <TileButton text={"Exchange"} />
                 <TileButton text={"Loan"} />
-                <TileButton text={"Forex"} />
-                <TileButton text={"Exchange"} />{" "}
+                <TileButton text={"Invest"} />{" "}
                 {/* Forex Button (Secondary) */}
               </div>
             </div>
