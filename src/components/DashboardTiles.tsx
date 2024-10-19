@@ -17,8 +17,77 @@ interface DashboardTilesProps {
 const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions, setSubscriptions}) => {
 
     const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
+    const [percentageFall, setPercentageFall] = useState('');
+    const [exchangeRateFall, setExchangeRate] = useState('');
+    const [notificationMethods, setNotificationMethods] = useState({
+      sms: false,
+      mail: false,
+      push: false,
+    });
+  
+    const handleCheckboxChange = (method: string) => {
+      setNotificationMethods((prevMethods) => ({
+        ...prevMethods,
+        [method]: !prevMethods[method],
+      }));
+    };
+  
+    const handleSubmit = () => {
+      
+        //TODO: zmiana stanu
+
+      const selectedMethods = Object.keys(notificationMethods).filter(
+        (method) => notificationMethods[method as keyof typeof notificationMethods]
+      );
+
+      const subscription = subscriptions.find(subscription => subscription.currency == selectedCurrency);
+
+      if(subscription) {
+        //remove subscription
+        setSubscriptions(subscriptions.filter(sub => sub.currency != selectedCurrency))
+      } else {
+        //add subscription
+        const newsubscription = {
+            isActive: true,
+            currency: selectedCurrency,
+            percentageFall: percentageFall,
+            exchangeRateFall: exchangeRateFall,
+            notificationMethod: []
+        }
+    
+        setSubscriptions([...subscriptions, newsubscription]);
+      }
+      
+
+    
+
+      console.log(subscriptions);
+
+      console.log('percentageFall:', percentageFall);
+      console.log('exchangeRateFall:', exchangeRateFall);
+      console.log('Selected Notification Methods:', selectedMethods);
+      setSelectedCurrency(null);
+
+    };
 
     const openModal = (currency: string) => {
+        const subscription = subscriptions.find(subscription => subscription.currency == currency);
+        console.log(subscription)
+        setPercentageFall(subscription ? subscription.percentageFall:'');
+        setExchangeRate(subscription ? subscription.exchangeRateFall:'');
+        if(subscription) {
+            setNotificationMethods({sms: subscription.notificationMethod.includes('sms'),
+                    mail: false,
+                    push: false
+            })
+        } else {
+            setNotificationMethods({
+                sms: false,
+                mail: false,
+                push: false
+            }
+            );
+        }
         setSelectedCurrency(currency);
     };
 
@@ -117,11 +186,69 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
                 <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
                     <div className="bg-white rounded-lg p-8 shadow-lg relative max-w-lg w-full">
                         <h2 className="text-2xl font-bold mb-4">Subscribe for notifications</h2>
-                        <p className="text-gray-700 mt-4">To be filled.</p>
+                        <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2">
+      Percentage fall by
+    </label>
+    <input
+      type="text"
+      id="percentageFall"
+      value={percentageFall}
+      onChange={(e) => setPercentageFall(e.target.value)}
+      placeholder="Enter the percentage fall when you would like to be notified."
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  {/* Second Input Field */}
+  <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+      Exchange rate fallen to
+    </label>
+    <input
+      type="text"
+      id="exchangeRate"
+      value={exchangeRateFall}
+      onChange={(e) => setExchangeRate(e.target.value)}
+      placeholder="Enter exchange rate when you would like to be notified."
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  {/* Notification Methods (Checkboxes) */}
+  <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2">
+      Notification Method
+    </label>
+    <div className="flex gap-4">
+      <label className="inline-flex items-center">
+        <input
+          type="checkbox"
+          className="form-checkbox h-5 w-5 text-indigo-600"
+        />
+        <span className="ml-2 text-gray-700">SMS</span>
+      </label>
+      <label className="inline-flex items-center">
+        <input
+          type="checkbox"
+          className="form-checkbox h-5 w-5 text-indigo-600"
+        />
+        <span className="ml-2 text-gray-700">Mail</span>
+      </label>
+      <label className="inline-flex items-center">
+        <input
+          type="checkbox"
+          className="form-checkbox h-5 w-5 text-indigo-600"
+        />
+        <span className="ml-2 text-gray-700">Push</span>
+      </label>
+    </div>
+  </div>
 
 
-                        <div className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1">
-                                {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) !== null ? "subscribe" : "unsubscribe"}
+                        <div className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
+                        onClick={() => handleSubmit()}>
+                                {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) ? "unsubscribe" : "subscribe"}
                                 <span className="ml-2">→</span>
                             </div>
 
