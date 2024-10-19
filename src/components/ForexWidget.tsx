@@ -122,7 +122,7 @@ function ForexWidget() {
   return (
     <>
       <div
-        className="relative  sm:min-w-full sm:w-auto md:min-w-fit p-6 bg-white rounded-lg shadow-md md:w-3/6  hover:shadow-lg hover:bg-gray-50 transition-transform duration-300 ease-in-out transform hover:scale-105"
+        className="relative cursor-pointer sm:min-w-full sm:w-auto md:min-w-fit p-6 bg-white rounded-lg shadow-md md:w-3/6  hover:shadow-lg hover:bg-gray-50 transition-transform duration-300 ease-in-out transform hover:scale-105"
         onClick={toggleDrawer}
       >
         <MapChart />

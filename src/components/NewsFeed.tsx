@@ -20,10 +20,12 @@ const NewsFeed: React.FC = () => {
         <div className="bg-white max-w-6xl mx-auto p-5">
           <h2 className="text-3xl font-semibold mb-4">Market Insights & Updates</h2>
           {/* Grid layout for tile display */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map((element) => (
                 <div
                     key={element.id}
+                    onClick={() => openModal(element)}
                     className="border border-gray-200 rounded-lg shadow-sm overflow-hidden cursor-pointer hover:scale-105 transition"
                 >
                   <div className="h-32 bg-gray-300">
@@ -37,7 +39,6 @@ const NewsFeed: React.FC = () => {
                   <div className="p-4">
                     <h3
                         className="text-lg font-bold text-gray-800 cursor-pointer mb-2"
-                        onClick={() => openModal(element)}
                     >
                       {element.title}
                     </h3>
@@ -48,8 +49,12 @@ const NewsFeed: React.FC = () => {
 
           {/* Modal for selected article */}
           {selectedArticle && (
-              <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-10">
-                <div className="bg-white rounded-lg p-8 shadow-lg relative max-w-lg w-full">
+              <div
+                  onClick={() => closeModal()}
+                  className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center cursor-pointer justify-center z-10">
+                <div className="bg-white rounded-lg p-8 shadow-lg relative max-w-lg w-full z-20 cursor-default" onClick={(e) => {
+                  e.stopPropagation();
+                }}>
                   <h2 className="text-2xl font-bold mb-4">
                     {selectedArticle.title}
                   </h2>
