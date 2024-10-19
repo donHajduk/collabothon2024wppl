@@ -10,6 +10,8 @@ import DashboardTiles from "@/components/DashboardTiles";
 
 function ForexWidget() {
     const [open, setOpen] = useState(true);
+    const [subscriptions, setSubscriptions] = useState<Subscription[] | []>([]);
+
 
     const toggleDrawer = () => {
         setOpen(!open);
@@ -100,7 +102,7 @@ function ForexWidget() {
                     {currency: 'CHF', rate: 0.88, previousRate: 0.87, recommendationScore: 3},
                     {currency: 'GBP', rate: 0.79, previousRate: 0.80, recommendationScore: 4},
                     {currency: 'CNY', rate: 6.85, previousRate: 6.82, recommendationScore: 2},
-                ]}/>
+                ] }subscriptions={subscriptions} setSubscriptions = {setSubscriptions}/>
                 {/*<DiversifiedProgressBar2/>*/}
                 {/*<DashboardTiles2/>*/}
                 {/*<ForexTable/>*/}

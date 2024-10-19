@@ -1,6 +1,9 @@
 import ForexWidget from "@/components/ForexWidget";
 
+
+
 export default function Home() {
+
   return (
     <main className={"main-content overflow-hidden  "}>
       <h2>Overview of the Most Important Activities</h2>

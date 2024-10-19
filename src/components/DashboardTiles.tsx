@@ -1,4 +1,5 @@
-import React from 'react';
+import { Subscription } from '@/model/subscription.type';
+import React, { useState } from 'react';
 
 interface CurrencyData {
     currency: string;
@@ -9,9 +10,22 @@ interface CurrencyData {
 
 interface DashboardTilesProps {
     accounts: CurrencyData[];
+    subscriptions: Subscription[];
+    setSubscriptions: (subscriptions: Subscription[]) => void;
 }
 
-const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
+const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions, setSubscriptions}) => {
+
+    const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
+
+    const openModal = (currency: string) => {
+        setSelectedCurrency(currency);
+    };
+
+    const closeModal = () => {
+        setSelectedCurrency(null);
+    };
+
     return (
         <div className="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1">
             {accounts.map((account, index) => {
@@ -41,6 +55,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
                                 strokeWidth={1.5}
                                 stroke="currentColor"
                                 className="size-6"
+                                onClick={() => openModal(account.currency)}
                             >
                                 <path
                                     strokeLinecap="round"
@@ -95,6 +110,29 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
                     </div>
                 );
             })}
+
+{selectedCurrency && (
+                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-white rounded-lg p-8 shadow-lg relative max-w-lg w-full">
+                        <h2 className="text-2xl font-bold mb-4">Subscribe for notifications</h2>
+                        <p className="text-gray-700 mt-4">To be filled.</p>
+
+
+                        <div className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1">
+                                {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) !== null ? "subscribe" : "unsubscribe"}
+                                <span className="ml-2">→</span>
+                            </div>
+
+                        <button
+                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                            onClick={closeModal}
+                        >
+                            &#10005; {/* Close Icon */}
+                        </button>
+                    </div>
+                </div>
+            )}  
+
         </div>
     );
 };
