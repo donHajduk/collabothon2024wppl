@@ -1,4 +1,11 @@
-import React, { useEffect } from "react";
+import React, {ReactNode, useEffect} from "react";
+
+interface DrawerProps {
+    open: boolean;
+    handleToggle: () => void;
+    width: "50%" | "75%";
+    children: ReactNode;
+}
 
 const Drawer: React.FC<DrawerProps> = ({
                                          open,
