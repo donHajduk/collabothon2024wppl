@@ -24,7 +24,7 @@ const NewsFeed: React.FC = () => {
             {articles.map((element) => (
                 <div
                     key={element.id}
-                    className="border border-gray-200 rounded-lg shadow-sm overflow-hidden"
+                    className="border border-gray-200 rounded-lg shadow-sm overflow-hidden cursor-pointer hover:scale-105 transition"
                 >
                   <div className="h-32 bg-gray-300">
                     {/* Image placeholder */}

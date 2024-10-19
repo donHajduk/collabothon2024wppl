@@ -77,9 +77,9 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
         setExchangeRate(subscription ? subscription.exchangeRateFall:'');
         if(subscription) {
             console.log(subscription)
-            const flag1 = subscription.notificationMethod.find(elem => elem =="sms");
-            const flag2 = subscription.notificationMethod.find(elem => elem =="mail");
-            const flag3 = subscription.notificationMethod.find(elem => elem =="push");
+            const flag1 = subscription.notificationMethod.find(elem => elem == "sms");
+            const flag2 = subscription.notificationMethod.find(elem => elem == "mail");
+            const flag3 = subscription.notificationMethod.find(elem => elem == "push");
             console.log("flagi",flag1, flag2, flag3);
             setNotificationMethods({sms: flag1,
                     mail: flag2,
