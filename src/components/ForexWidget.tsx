@@ -39,7 +39,7 @@ const defaultProducts: Array<CurrencyData> = [
     balance: 22500.75,
   },
   {
-    currency: "CNY",
+    currency: "EUR",
     rate: 7.7,
     previousRate: 7.77,
     recommendationScore: 1,
@@ -95,6 +95,9 @@ function ForexWidget() {
     // const responses = await Promise.all());
     const updatedProducts = [];
     for (const prod of products) {
+      if (prod.currency === "EUR") {
+        continue;
+      }
       const product = { ...prod };
       const response = await getExchangeRateBetweenCurrencies(
         "EUR",
@@ -106,7 +109,18 @@ function ForexWidget() {
     setProducts(updatedProducts);
   };
 
-  const accounts: Account[] = products
+  const accounts: Account[] = [
+    ...products,
+    {
+      currency: "EUR",
+      rate: 7.7,
+      previousRate: 7.77,
+      recommendationScore: 1,
+      liked: false,
+      change: 0.07,
+      balance: 43000.0,
+    },
+  ]
     .filter((value) => value.balance)
     .map((poduct) => {
       return {
@@ -148,27 +162,29 @@ function ForexWidget() {
               3
             </div>
           </div>
-          <div className="ml-auto relative group">
-            <div className="absolute right-full mr-2 hidden group-hover:block w-max bg-gray-700 text-white text-sm rounded py-2 px-4 shadow-lg">
-              Score indicator is not a investment advice. It is a price <br />
-              indicator based on previous purchases of a given currency in{" "}
-              <br />
-              relation to current and historical exchange rates.
+          <div className="ml-auto">
+            <div className="ml-auto relative group">
+              <div className="absolute right-full mr-2 hidden group-hover:block w-max bg-gray-700 text-white text-sm rounded py-2 px-4 shadow-lg">
+                Score indicator is not a investment advice. It is a price <br />
+                indicator based on previous purchases of a given currency in{" "}
+                <br />
+                relation to current and historical exchange rates.
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                />
+              </svg>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-8"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-              />
-            </svg>
           </div>
         </div>
         <div className="border-b mb-4"></div>
@@ -181,7 +197,7 @@ function ForexWidget() {
                   <MainWidgetPosition
                     key={value.currency}
                     score={value.recommendationScore}
-                    valueChange={value.change}
+                    valueChange={value.rate - value.previousRate}
                     comparedCurrency={value.currency}
                     currencyValue={value.rate}
                     currencyAccountBalance={value.balance?.toFixed(2) ?? 0}
