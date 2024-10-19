@@ -11,7 +11,7 @@ export default function Home() {
           <div className="top-right">NEW</div>
           <button>Approve Now</button>
         </div>
-        <div className="section-item min-h-48">
+        <div className="section-item min-h-48 ">
           <h3>3 New Orders for Approval</h3>
           <p>Order Overview</p>
           <div className="top-right">NEW</div>
