@@ -353,19 +353,6 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
                 </label>
               </div>
             </div>
-
-
-                        <div className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
-                        onClick={() => handleSubmit()}>
-                                {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) ? "unsubscribe" : "subscribe"}
-                                <span className="ml-2">→</span>
-                            </div>
-                           {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) && 
-                           <div className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
-                        onClick={() => handleUpdate()}>
-                                update
-                                <span className="ml-2">→</span>
-                            </div> }
             <div
               className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
               onClick={() => handleSubmit()}
