@@ -4,23 +4,77 @@ import MapChart from "./mapComponent/shared/map/Map";
 import Drawer from "@/components/Drawer";
 import NewsFeed from "./NewsFeed";
 import DiversifiedProgressBar from "@/components/DiversifiedProgressBar";
-import DashboardTiles from "@/components/DashboardTiles";
+import DashboardTiles, {CurrencyData} from "@/components/DashboardTiles";
 import MainWidgetPosition from "./mainWidget/MainWidgetPosition";
 import CurrencySearch from "@/components/CurrencySearch";
+
+const defaultProducts: Array<CurrencyData>= [
+    {
+        currency: "USD",
+        rate: 1.12,
+        previousRate: 1.11,
+        recommendationScore: 3,
+        liked: true,
+        change: 0.12
+    },
+    {
+        currency: "CHF",
+        rate: 0.88,
+        previousRate: 0.87,
+        recommendationScore: 5,
+        liked: true,
+        change: 0.12
+    },
+    {
+        currency: "GBP",
+        rate: 0.79,
+        previousRate: 0.8,
+        recommendationScore: 3,
+        liked: true,
+        change: 0.12
+    },
+    {
+        currency: "CNY",
+        rate: 6.85,
+        previousRate: 6.82,
+        recommendationScore: 1,
+        liked: false,
+        change: 0.12
+    },
+    {
+        currency: "PLN",
+        rate: 0.2,
+        previousRate: 0.18,
+        recommendationScore: 3,
+        liked: false,
+        change: 0.01
+    }
+];
 
 function ForexWidget() {
     const [open, setOpen] = useState(true);
     const [subscriptions, setSubscriptions] = useState<Subscription[] | []>([]);
 
+    const [products, setProducts] = useState<CurrencyData[] | []>(defaultProducts);
 
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
+    const setLikedProduct = (currency: string) => {
+        const newProducts = [...products].map(value => {return {...value}});
+        const product = newProducts.find(value => value.currency === currency);
+
+        if(product){
+            product.liked = !product.liked;
+        }
+        setProducts(newProducts);
+    }
+
     return (
         <>
             <div
-                className="relative  sm:min-w-full sm:w-auto md:min-w-fit p-6 bg-white rounded-lg shadow-md md:w-3/6  hover:shadow-lg hover:bg-gray-50 transition-transform duration-300 ease-in-out transform hover:scale-105"
+                className="relative cursor-pointer sm:min-w-full sm:w-auto md:min-w-fit p-6 bg-white rounded-lg shadow-md md:w-3/6  hover:shadow-lg hover:bg-gray-50 transition-transform duration-300 ease-in-out transform hover:scale-105"
                 onClick={toggleDrawer}
             >
                 <MapChart/>
@@ -50,27 +104,20 @@ function ForexWidget() {
                 </div>
                 <div className="border-b mb-4"></div>
                 <div className="space-y-4">
-                    <MainWidgetPosition
-                        score={3}
-                        valueChange={0.12}
-                        comparedCurrency={"PLN"}
-                        currencyValue={0.24}
-                    />
-
-                    <div className="border-b"></div>
-                    <MainWidgetPosition
-                        score={1}
-                        valueChange={0.12}
-                        comparedCurrency={"DOL"}
-                        currencyValue={1.03}
-                    />
-                    <div className="border-b"></div>
-                    <MainWidgetPosition
-                        score={4}
-                        valueChange={-1.12}
-                        comparedCurrency={"CHF"}
-                        currencyValue={1.44}
-                    />
+                    {products
+                        .filter(value => value.liked)
+                        .map((value, position) => {
+                            return <>
+                                <MainWidgetPosition
+                                    key={value.currency}
+                                    score={value.recommendationScore}
+                                    valueChange={value.change}
+                                    comparedCurrency={value.currency}
+                                    currencyValue={value.rate}
+                                />
+                                {position !== products.length -1  && <div className="border-b"/>}
+                            </>
+                        })}
                 </div>
             </div>
             {/* Drawer z konfiguracją */}
@@ -107,32 +154,8 @@ function ForexWidget() {
                 <CurrencySearch/>
 
                 <DashboardTiles
-                    accounts={[
-                        {
-                            currency: "USD",
-                            rate: 1.12,
-                            previousRate: 1.11,
-                            recommendationScore: 3,
-                        },
-                        {
-                            currency: "CHF",
-                            rate: 0.88,
-                            previousRate: 0.87,
-                            recommendationScore: 5,
-                        },
-                        {
-                            currency: "GBP",
-                            rate: 0.79,
-                            previousRate: 0.8,
-                            recommendationScore: 3,
-                        },
-                        {
-                            currency: "CNY",
-                            rate: 6.85,
-                            previousRate: 6.82,
-                            recommendationScore: 1,
-                        },
-                    ]} subscriptions={subscriptions} setSubscriptions={setSubscriptions}
+                    accounts={products} subscriptions={subscriptions} setSubscriptions={setSubscriptions}
+                    setLikedProduct={setLikedProduct}
                 />
                 <NewsFeed/>
 
