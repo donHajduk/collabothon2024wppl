@@ -111,7 +111,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
                         style={{width: '100%', height: '100%'}}
                     >
                         <div className="px-2 py-6">
-                            <ScoreIndicator value={5}/>
+                            <ScoreIndicator value={account.recommendationScore}/>
                         </div>
 
                         <div className={"ml-4"}>

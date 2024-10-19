@@ -49,6 +49,12 @@ const currencyNews: Map<string, string[]> = new Map([
       content: "Eurozone economic growth slowed to 0.3% in the third quarter of 2024, marking a deceleration compared to the previous quarter. Analysts attribute the slowdown to weak consumer spending and ongoing geopolitical tensions. The slowdown in the German and French economies, the Eurozone’s largest, has also contributed to the softer growth figures."
     },
     {
+      id: 31,
+      relatedCurrency: "EUR",
+      title: "Eurozone Economic Growth Slows in Q3",
+      content: "Eurozone economic growth slowed to 0.3% in the third quarter of 2024, marking a deceleration compared to the previous quarter. Analysts attribute the slowdown to weak consumer spending and ongoing geopolitical tensions. The slowdown in the German and French economies, the Eurozone’s largest, has also contributed to the softer growth figures."
+    },
+    {
       id: 3,
       relatedCurrency: "CHF",
       title: "Swiss National Bank Intervenes to Stabilize Franc",
