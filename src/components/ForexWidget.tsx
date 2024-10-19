@@ -5,14 +5,7 @@ import Drawer from "@/components/Drawer";
 import NewsFeed from "./NewsFeed";
 import DiversifiedProgressBar from "@/components/DiversifiedProgressBar";
 import DashboardTiles from "@/components/DashboardTiles";
-<<<<<<< Updated upstream
 import MainWidgetPosition from "./mainWidget/MainWidgetPosition";
-=======
-import DashboardTiles2 from "@/components/DashboardTiles2";
-import DiversifiedProgressBar2 from "@/components/DiversifiedProgressBar2";
-import CurrencySearch from "@/components/CurrencySearch";
-
->>>>>>> Stashed changes
 
 function ForexWidget() {
   const [open, setOpen] = useState(true);
@@ -48,7 +41,6 @@ function ForexWidget() {
             <div className="flex items-center justify-center w-6 h-6 bg-yellow-400 text-black font-bold text-sm rounded-full">
               3
             </div>
-<<<<<<< Updated upstream
           </div>
         </div>
         <div className="border-b mb-4"></div>
@@ -161,21 +153,6 @@ function ForexWidget() {
       </Drawer>
     </>
   );
-=======
-            {/* Drawer z konfiguracją */}
-            <Drawer open={open} handleToggle={toggleDrawer} width={"50%"}>
-                <DiversifiedProgressBar/>
-                <NewsFeed/>
-                <CurrencySearch/>
-                <DashboardTiles/>
-                {/*<DiversifiedProgressBar2/>*/}
-                {/*<DashboardTiles2/>*/}
-                {/*<ForexTable/>*/}
-                {/*<DonutChart/>*/}
-            </Drawer>
-        </>
-    );
->>>>>>> Stashed changes
 }
 
 export default ForexWidget;
