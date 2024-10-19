@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Account {
+export interface Account {
     currency: string;
     iban: string;
     balance: number;

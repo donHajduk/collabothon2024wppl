@@ -8,6 +8,7 @@ import DashboardTiles, { CurrencyData } from "@/components/DashboardTiles";
 import MainWidgetPosition from "./mainWidget/MainWidgetPosition";
 import { Subscription } from "@/model/subscription.type";
 import {getExchangeRateBetweenCurrencies} from "@/service/exchangeRateApiRead.service";
+import {Account} from "@/model/account.type";
 
 const defaultProducts: Array<CurrencyData> = [
   {
@@ -17,14 +18,16 @@ const defaultProducts: Array<CurrencyData> = [
     recommendationScore: 3,
     liked: true,
     change: 0.12,
+    balance: 11000.5,
   },
   {
     currency: "CHF",
-    rate: 0.88,
-    previousRate: 0.87,
+    rate: 0.93,
+    previousRate: 0.90,
     recommendationScore: 5,
     liked: true,
-    change: 0.12,
+    change: 0.03,
+    balance: 31500.0,
   },
   {
     currency: "GBP",
@@ -33,23 +36,35 @@ const defaultProducts: Array<CurrencyData> = [
     recommendationScore: 3,
     liked: true,
     change: 0.12,
+    balance: 22500.75,
   },
   {
     currency: "CNY",
-    rate: 6.85,
-    previousRate: 6.82,
+    rate: 7.70,
+    previousRate: 7.77,
     recommendationScore: 1,
     liked: false,
-    change: 0.12,
+    change: 0.07,
+    balance: 43000.0
   },
   {
     currency: "PLN",
-    rate: 0.2,
-    previousRate: 0.18,
+    rate: 4.3,
+    previousRate: 4.31,
     recommendationScore: 3,
     liked: false,
     change: 0.01,
+    balance: null
   },
+  {
+    currency: "AUD",
+    rate: 1.61,
+    previousRate: 1.62,
+    recommendationScore: 3,
+    liked: false,
+    change: 0.01,
+    balance: 5800.0
+  }
 ];
 
 function ForexWidget() {
@@ -88,9 +103,22 @@ function ForexWidget() {
         setProducts(updatedProducts);
     }
 
-    useEffect(() => {
-        syncRates();
-    }, []);
+
+    const accounts: Account[] = products
+        .filter(value => value.balance)
+        .map(poduct => {
+            return {
+                currency: poduct.currency,
+                balance: poduct.balance as number,
+                iban: ""
+            }
+        });
+
+
+  useEffect(() => {
+    syncRates();
+  }, []);
+
   return (
     <>
       <div
@@ -132,66 +160,17 @@ function ForexWidget() {
                             valueChange={value.change}
                             comparedCurrency={value.currency}
                             currencyValue={value.rate}
+                            currencyAccountBalance={value.balance ?? 0}
                         />
                         {position !== products.length -1  && <div className="border-b"/>}
                     </>
                 })}
-          {/*<MainWidgetPosition*/}
-          {/*  score={3}*/}
-          {/*  valueChange={0.12}*/}
-          {/*  comparedCurrency={"PLN"}*/}
-          {/*  currencyValue={0.24}*/}
-          {/*  currencyAccountBalance={"103.031,24 PLN"}*/}
-          {/*/>*/}
-
-          {/*<div className="border-b"></div>*/}
-          {/*<MainWidgetPosition*/}
-          {/*  score={1}*/}
-          {/*  valueChange={0.12}*/}
-          {/*  comparedCurrency={"DOL"}*/}
-          {/*  currencyValue={1.03}*/}
-          {/*  currencyAccountBalance={"1.021.213,21 DOL"}*/}
-          {/*/>*/}
-          {/*<div className="border-b"></div>*/}
-          {/*<MainWidgetPosition*/}
-          {/*  score={4}*/}
-          {/*  valueChange={-1.12}*/}
-          {/*  comparedCurrency={"CHF"}*/}
-          {/*  currencyValue={1.44}*/}
-          {/*  currencyAccountBalance={"211,123,91 DOL"}*/}
-          {/*/>*/}
         </div>
       </div>
       {/* Drawer z konfiguracją */}
       <Drawer open={open} handleToggle={toggleDrawer} width={"50%"}>
         <DiversifiedProgressBar
-          accounts={[
-            {
-              currency: "USD",
-              iban: "US12345678901234567890",
-              balance: 11000.5,
-            },
-            {
-              currency: "GBP",
-              iban: "DE12345678901234567890",
-              balance: 22500.75,
-            },
-            {
-              currency: "CHF",
-              iban: "GB12345678901234567890",
-              balance: 31500.0,
-            },
-            {
-              currency: "CNY",
-              iban: "PL12345678901234567890",
-              balance: 43000.0,
-            },
-            {
-              currency: "AUD",
-              iban: "AU12345678901234567890",
-              balance: 5800.0,
-            },
-          ]}
+            accounts={accounts}
         />
         <DashboardTiles
           accounts={products}

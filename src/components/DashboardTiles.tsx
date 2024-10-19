@@ -15,6 +15,7 @@ export interface CurrencyData {
   recommendationScore: number;
   liked: boolean;
   change: number;
+  balance: number | null;
 }
 
 interface DashboardTilesProps {
