@@ -68,7 +68,7 @@ const defaultProducts: Array<CurrencyData> = [
 ];
 
 function ForexWidget() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [subscriptions, setSubscriptions] = useState<Subscription[] | []>([]);
 
   const [products, setProducts] = useState<CurrencyData[] | []>(
