@@ -34,6 +34,28 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
         [method]: !prevMethods[method],
       }));
     };
+
+    const handleUpdate = () => {
+    
+        const subsriptionscopy = [...subscriptions].map(value => {return {...value}});
+        const subscription = subsriptionscopy.find(subscription => subscription.currency == selectedCurrency);
+
+        const selectedMethods = Object.keys(notificationMethods).filter(
+            (method) => notificationMethods[method as keyof typeof notificationMethods]
+          );
+
+        subscription.isActive = true;
+        subscription.currency = selectedCurrency;
+        subscription.percentageFall = percentageFall;
+        subscription.exchangeRateFall = exchangeRateFall;
+        subscription.notificationMethod = selectedMethods;
+
+        setSubscriptions(subsriptionscopy);
+        setSelectedCurrency(null);
+
+
+
+    }
   
     const handleSubmit = () => {
       
@@ -47,7 +69,6 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
         //remove subscription
         setSubscriptions(subscriptions.filter(sub => sub.currency != selectedCurrency))
       } else {
-        console.log("selected methods:", selectedMethods)
         //add subscription
         const newsubscription = {
             isActive: true,
@@ -273,6 +294,12 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
                                 {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) ? "unsubscribe" : "subscribe"}
                                 <span className="ml-2">→</span>
                             </div>
+                           {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) && 
+                           <div className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
+                        onClick={() => handleUpdate()}>
+                                update
+                                <span className="ml-2">→</span>
+                            </div> }
 
                         <button
                             className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
