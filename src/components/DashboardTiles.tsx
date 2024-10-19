@@ -2,39 +2,71 @@ import { Subscription } from '@/model/subscription.type';
 import React, { useState } from 'react';
 import {ScoreIndicator} from "@/components/ScoreIndicator";
 
-interface CurrencyData {
+export interface CurrencyData {
     currency: string;
     rate: number;
     previousRate: number;
     recommendationScore: number;
+    liked: boolean;
+    change: number;
 }
 
 interface DashboardTilesProps {
     accounts: CurrencyData[];
     subscriptions: Subscription[];
     setSubscriptions: (subscriptions: Subscription[]) => void;
+    setLikedProduct: (currency: string) => void
+}
+
+const LikeIconButton = ({color, onClick}: { color?: "red", onClick: () => void }) => {
+
+    return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                stroke="currentColor" className="size-6"
+                onClick={onClick}
+    >
+        <path fill={color ?? ""} strokeLinecap="round" strokeLinejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
+    </svg>
+
+}
+
+const NotificationIconButton = ({action}: any) => {
+    return <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+        onClick={() => action()}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+        />
+    </svg>
 }
 
 
-const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions, setSubscriptions}) => {
+const DashboardTiles: React.FC<DashboardTilesProps> = ({accounts, subscriptions, setSubscriptions, setLikedProduct}) => {
 
     const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
     const [percentageFall, setPercentageFall] = useState('');
     const [exchangeRateFall, setExchangeRate] = useState('');
     const [notificationMethods, setNotificationMethods] = useState({
-      sms: false,
-      mail: false,
-      push: false,
+        sms: false,
+        mail: false,
+        push: false,
     });
-  
+
     const handleCheckboxChange = (method: string) => {
-        console.log(method)
-      setNotificationMethods((prevMethods) => ({
-        ...prevMethods,
-        [method]: !prevMethods[method],
-      }));
+        setNotificationMethods((prevMethods) => ({
+            ...prevMethods,
+            [method]: !prevMethods[method],
+        }));
     };
-  
+
     const handleSubmit = () => {
       
       const selectedMethods = Object.keys(notificationMethods).filter(
@@ -59,15 +91,12 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
     
         setSubscriptions([...subscriptions, newsubscription]);
       }
-      
-
-    
-
       console.log(subscriptions);
 
       setSelectedCurrency(null);
 
     };
+
 
     const openModal = (currency: string) => {
         console.log("onclick openmodal")
@@ -127,22 +156,14 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
                                     {/*    Buy*/}
                                     {/*</span>*/}
                                 </div>
-                                {/* Notification Bell */}
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="size-6"
-                                    onClick={() => openModal(account.currency)}
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
-                                    />
-                                </svg>
+
+                                <div className={"flex space-x-3"}>
+                                    <LikeIconButton color={account.liked ? "red" : undefined} onClick={()=>setLikedProduct(account.currency)}/>
+                                    {/* Notification Bell */}
+                                    <NotificationIconButton action={() => {openModal(account.currency)}} />
+                                </div>
+
+
                             </div>
 
 
@@ -282,7 +303,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts, subscriptions
                         </button>
                     </div>
                 </div>
-            )}  
+            )}
 
         </div>
     );
