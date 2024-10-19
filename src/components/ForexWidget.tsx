@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import MapChart from "./mapComponent/shared/map/Map";
 import Drawer from "@/components/Drawer";
 import NewsFeed from "./NewsFeed";
@@ -7,6 +7,7 @@ import DiversifiedProgressBar from "@/components/DiversifiedProgressBar";
 import DashboardTiles, { CurrencyData } from "@/components/DashboardTiles";
 import MainWidgetPosition from "./mainWidget/MainWidgetPosition";
 import { Subscription } from "@/model/subscription.type";
+import {getExchangeRateBetweenCurrencies} from "@/service/exchangeRateApiRead.service";
 
 const defaultProducts: Array<CurrencyData> = [
   {
@@ -74,6 +75,22 @@ function ForexWidget() {
     }
     setProducts(newProducts);
   };
+
+    const syncRates = async () => {
+        // const responses = await Promise.all());
+        const updatedProducts = [];
+        for(const prod of products){
+            const product = {...prod};
+            const response = await getExchangeRateBetweenCurrencies("EUR", prod.currency)
+            product.rate = response as number;
+            updatedProducts.push(product);
+        }
+        setProducts(updatedProducts);
+    }
+
+    useEffect(() => {
+        syncRates();
+    }, []);
   return (
     <>
       <div
@@ -105,30 +122,44 @@ function ForexWidget() {
         </div>
         <div className="border-b mb-4"></div>
         <div className="space-y-4">
-          <MainWidgetPosition
-            score={3}
-            valueChange={0.12}
-            comparedCurrency={"PLN"}
-            currencyValue={0.24}
-            currencyAccountBalance={"103.031,24 PLN"}
-          />
+            {products
+                .filter(value => value.liked)
+                .map((value, position) => {
+                    return <>
+                        <MainWidgetPosition
+                            key={value.currency}
+                            score={value.recommendationScore}
+                            valueChange={value.change}
+                            comparedCurrency={value.currency}
+                            currencyValue={value.rate}
+                        />
+                        {position !== products.length -1  && <div className="border-b"/>}
+                    </>
+                })}
+          {/*<MainWidgetPosition*/}
+          {/*  score={3}*/}
+          {/*  valueChange={0.12}*/}
+          {/*  comparedCurrency={"PLN"}*/}
+          {/*  currencyValue={0.24}*/}
+          {/*  currencyAccountBalance={"103.031,24 PLN"}*/}
+          {/*/>*/}
 
-          <div className="border-b"></div>
-          <MainWidgetPosition
-            score={1}
-            valueChange={0.12}
-            comparedCurrency={"DOL"}
-            currencyValue={1.03}
-            currencyAccountBalance={"1.021.213,21 DOL"}
-          />
-          <div className="border-b"></div>
-          <MainWidgetPosition
-            score={4}
-            valueChange={-1.12}
-            comparedCurrency={"CHF"}
-            currencyValue={1.44}
-            currencyAccountBalance={"211,123,91 DOL"}
-          />
+          {/*<div className="border-b"></div>*/}
+          {/*<MainWidgetPosition*/}
+          {/*  score={1}*/}
+          {/*  valueChange={0.12}*/}
+          {/*  comparedCurrency={"DOL"}*/}
+          {/*  currencyValue={1.03}*/}
+          {/*  currencyAccountBalance={"1.021.213,21 DOL"}*/}
+          {/*/>*/}
+          {/*<div className="border-b"></div>*/}
+          {/*<MainWidgetPosition*/}
+          {/*  score={4}*/}
+          {/*  valueChange={-1.12}*/}
+          {/*  comparedCurrency={"CHF"}*/}
+          {/*  currencyValue={1.44}*/}
+          {/*  currencyAccountBalance={"211,123,91 DOL"}*/}
+          {/*/>*/}
         </div>
       </div>
       {/* Drawer z konfiguracją */}
