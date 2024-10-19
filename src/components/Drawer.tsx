@@ -31,7 +31,7 @@ const Drawer: React.FC<DrawerProps> = ({
             />
             {/* Drawer */}
             <div
-                className={`fixed inset-y-0 right-0 bg-white shadow-lg h-full transition-transform duration-300 z-20 ${
+                className={`fixed inset-y-0 right-0 bg-white shadow-lg h-full transition-transform duration-300 pb-16 z-20 ${
                     open ? "translate-x-0" : "translate-x-full"
                 } ${layerWidth}`}
             >

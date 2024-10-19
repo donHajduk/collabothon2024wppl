@@ -43,12 +43,12 @@ const MapChart = () => {
 
   return (
     <ComposableMap
-      className="absolute top-3 "
+      className="absolute -top-0"
       fill="#333333"
       opacity={0.05}
       projectionConfig={{
         rotate: [rotation, 0, 0],
-        scale: 120,
+        scale: 130,
       }}
     >
       <Sphere stroke="#E4E5E6" strokeWidth={0.5} id={""} fill={""} />
