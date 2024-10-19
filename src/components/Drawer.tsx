@@ -36,7 +36,7 @@ const Drawer: React.FC<DrawerProps> = ({
             } ${layerWidth}`}
         >
           {/* Action Buttons */}
-          <div className="flex justify-between items-center p-8 py-8 border-gray-300 border-b-2 ">
+          <div className="flex justify-between items-center p-8 py-8 border-gray-300 border-b-2 shadow-md">
             <div onClick={handleToggle} className="flex items-center space-x-2 cursor-pointer">
               {/* Back Button */}
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
