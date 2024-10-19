@@ -6,6 +6,7 @@ import NewsFeed from "./NewsFeed";
 import DiversifiedProgressBar from "@/components/DiversifiedProgressBar";
 import DashboardTiles from "@/components/DashboardTiles";
 import MainWidgetPosition from "./mainWidget/MainWidgetPosition";
+import CurrencySearch from "@/components/CurrencySearch";
 
 function ForexWidget() {
     const [open, setOpen] = useState(true);
@@ -104,6 +105,7 @@ function ForexWidget() {
           ]}
         />
         <NewsFeed />
+        <CurrencySearch/>
         <DashboardTiles
           accounts={[
             {
