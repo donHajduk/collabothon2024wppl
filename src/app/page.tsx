@@ -17,42 +17,6 @@ export default function Home() {
           <div className="top-right">NEW</div>
           <button>Approve Now</button>
         </div>
-        <div className="overview">
-          {/* <div className="overview-item">
-          <h3>Total Balance of All Products: 12.345.678,90 €</h3>
-          <div className="circle-chart"></div>
-        </div> */}
-
-          {/* <div className="overview-item">
-            <h3>Most Used Accounts</h3>
-            <ul className="account-list">
-              <li>
-                Premium Business Account
-                <br />
-                <span>DE99 5004 0000 1122 3344 55</span>
-                +124.593,00 €
-              </li>
-              <li>
-                Premium Business Account
-                <br />
-                <span>DE99 5004 0000 1122 3344 55</span>
-                -1.500,00 €
-              </li>
-              <li>
-                Premium Business Account
-                <br />
-                <span>DE99 5004 0000 1122 3344 55</span>
-                +74.482,00 €
-              </li>
-              <li>
-                Premium Business Account
-                <br />
-                <span>DE99 5004 0000 1122 3344 55</span>
-                +163.500,00 €
-              </li>
-            </ul>
-          </div> */}
-        </div>
         <ForexWidget />
       </div>
 
