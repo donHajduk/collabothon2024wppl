@@ -44,7 +44,7 @@ const DiversifiedProgressBar: React.FC<DiversifiedProgressBarProps> = ({ account
     return (
         <div className="p-4">
             <h1 className="text-2xl font-bold mb-4">Currency Diversification</h1>
-            <div className="border border-gray-300 rounded-lg overflow-hidden h-10 flex w-full">
+            <div className="border border-gray-300 rounded-full overflow-hidden h-10 flex w-full">
                 {sections.map((section, index) => (
                     <div
                         key={index}
