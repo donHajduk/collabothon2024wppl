@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import MapChart from "./mapComponent/shared/map/Map";
 import Drawer from "@/components/Drawer";
 import NewsFeed from "./NewsFeed";
@@ -7,8 +7,8 @@ import DiversifiedProgressBar from "@/components/DiversifiedProgressBar";
 import DashboardTiles, { CurrencyData } from "@/components/DashboardTiles";
 import MainWidgetPosition from "./mainWidget/MainWidgetPosition";
 import { Subscription } from "@/model/subscription.type";
-import {getExchangeRateBetweenCurrencies} from "@/service/exchangeRateApiRead.service";
-import {Account} from "@/model/account.type";
+import { getExchangeRateBetweenCurrencies } from "@/service/exchangeRateApiRead.service";
+import { Account } from "@/model/account.type";
 
 const defaultProducts: Array<CurrencyData> = [
   {
@@ -23,7 +23,7 @@ const defaultProducts: Array<CurrencyData> = [
   {
     currency: "CHF",
     rate: 0.93,
-    previousRate: 0.90,
+    previousRate: 0.9,
     recommendationScore: 5,
     liked: true,
     change: 0.03,
@@ -40,12 +40,12 @@ const defaultProducts: Array<CurrencyData> = [
   },
   {
     currency: "CNY",
-    rate: 7.70,
+    rate: 7.7,
     previousRate: 7.77,
     recommendationScore: 1,
     liked: false,
     change: 0.07,
-    balance: 43000.0
+    balance: 43000.0,
   },
   {
     currency: "PLN",
@@ -54,7 +54,7 @@ const defaultProducts: Array<CurrencyData> = [
     recommendationScore: 3,
     liked: false,
     change: 0.01,
-    balance: null
+    balance: null,
   },
   {
     currency: "AUD",
@@ -63,8 +63,8 @@ const defaultProducts: Array<CurrencyData> = [
     recommendationScore: 3,
     liked: false,
     change: 0.01,
-    balance: 5800.0
-  }
+    balance: 5800.0,
+  },
 ];
 
 function ForexWidget() {
@@ -91,29 +91,30 @@ function ForexWidget() {
     setProducts(newProducts);
   };
 
-    const syncRates = async () => {
-        // const responses = await Promise.all());
-        const updatedProducts = [];
-        for(const prod of products){
-            const product = {...prod};
-            const response = await getExchangeRateBetweenCurrencies("EUR", prod.currency)
-            product.rate = response as number;
-            updatedProducts.push(product);
-        }
-        setProducts(updatedProducts);
+  const syncRates = async () => {
+    // const responses = await Promise.all());
+    const updatedProducts = [];
+    for (const prod of products) {
+      const product = { ...prod };
+      const response = await getExchangeRateBetweenCurrencies(
+        "EUR",
+        prod.currency
+      );
+      product.rate = response as number;
+      updatedProducts.push(product);
     }
+    setProducts(updatedProducts);
+  };
 
-
-    const accounts: Account[] = products
-        .filter(value => value.balance)
-        .map(poduct => {
-            return {
-                currency: poduct.currency,
-                balance: poduct.balance as number,
-                iban: ""
-            }
-        });
-
+  const accounts: Account[] = products
+    .filter((value) => value.balance)
+    .map((poduct) => {
+      return {
+        currency: poduct.currency,
+        balance: poduct.balance as number,
+        iban: "",
+      };
+    });
 
   useEffect(() => {
     syncRates();
@@ -147,31 +148,55 @@ function ForexWidget() {
               3
             </div>
           </div>
+          <div className="ml-auto relative group">
+            <div className="absolute right-full mr-2 hidden group-hover:block w-max bg-gray-700 text-white text-sm rounded py-2 px-4 shadow-lg">
+              Score indicator is not a investment advice. It is a price <br />
+              indicator based on previous purchases of a given currency in{" "}
+              <br />
+              relation to current and historical exchange rates.
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+              />
+            </svg>
+          </div>
         </div>
         <div className="border-b mb-4"></div>
         <div className="space-y-4">
-            {products
-                .filter(value => value.liked)
-                .map((value, position) => {
-                    return <>
-                        <MainWidgetPosition
-                            key={value.currency}
-                            score={value.recommendationScore}
-                            valueChange={value.change}
-                            comparedCurrency={value.currency}
-                            currencyValue={value.rate}
-                            currencyAccountBalance={value.balance?.toFixed(2) ?? 0}
-                        />
-                        {position !== products.length -1  && <div className="border-b"/>}
-                    </>
-                })}
+          {products
+            .filter((value) => value.liked)
+            .map((value, position) => {
+              return (
+                <>
+                  <MainWidgetPosition
+                    key={value.currency}
+                    score={value.recommendationScore}
+                    valueChange={value.change}
+                    comparedCurrency={value.currency}
+                    currencyValue={value.rate}
+                    currencyAccountBalance={value.balance?.toFixed(2) ?? 0}
+                  />
+                  {position !== products.length - 1 && (
+                    <div className="border-b" />
+                  )}
+                </>
+              );
+            })}
         </div>
       </div>
       {/* Drawer z konfiguracją */}
       <Drawer open={open} handleToggle={toggleDrawer} width={"50%"}>
-        <DiversifiedProgressBar
-            accounts={accounts}
-        />
+        <DiversifiedProgressBar accounts={accounts} />
         <DashboardTiles
           accounts={products}
           subscriptions={subscriptions}

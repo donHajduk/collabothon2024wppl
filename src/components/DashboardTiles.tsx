@@ -226,12 +226,37 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
 
   return (
     <div className="grid grid-cols-1 gap-4 p-4 px-6 lg:grid-cols-1 md:grid-cols-1 sm:grid-cols-1">
-      <h1 className="text-3xl font-bold mb-2">Current Exchange Rates & Trends</h1>
-            {accounts.map((account, index) => {
-                // Calculate the change
-                const change = account.rate - account.previousRate;
-                const percentageChange = (change / account.previousRate) * 100;
-                const sub = subscriptions.find((p) => p.currency === account.currency);
+      <div className="flex justify-start items-center mb-4">
+        <span className="text-3xl font-bold">
+          Current Exchange Rates & Trends
+        </span>
+        <div className="ml-auto relative group">
+          <div className="absolute right-full mr-2 mb-2 hidden group-hover:block w-max bg-gray-700 text-white text-sm rounded py-2 px-4 shadow-lg">
+            Score indicator is not a investment advice. It is a price <br />
+            indicator based on previous purchases of a given currency in <br />
+            relation to current and historical exchange rates.
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-8"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+            />
+          </svg>
+        </div>
+      </div>
+      {accounts.map((account, index) => {
+        // Calculate the change
+        const change = account.rate - account.previousRate;
+        const percentageChange = (change / account.previousRate) * 100;
+        const sub = subscriptions.find((p) => p.currency === account.currency);
 
         const defineChart = () => {
           switch (account.recommendationScore) {
@@ -311,8 +336,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
                 {/* Loan Button (Primary) */}
                 <TileButton text={"Exchange"} />
                 <TileButton text={"Loan"} />
-                <TileButton text={"Invest"} />{" "}
-                {/* Forex Button (Secondary) */}
+                <TileButton text={"Invest"} /> {/* Forex Button (Secondary) */}
               </div>
             </div>
             <hr />
