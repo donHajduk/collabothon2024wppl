@@ -72,6 +72,20 @@ h2 {
   position: relative;
 }
 
+.circle-chart {
+  height: 180px;
+  width: 180px;
+  background: conic-gradient(
+    #00574b 0% 44%,
+    #ffcc00 44% 56%,
+    #c9d1d3 56% 60%,
+    #6b7f85 60% 90%,
+    #c9d1d3 90% 100%
+  );
+  border-radius: 50%;
+  margin: 20px auto;
+}
+
 @media only screen and (max-width: 600px) {
 }
 
@@ -96,6 +110,20 @@ h2 {
     justify-content: space-between;
     margin-bottom: 30px;
     flex-direction: row;
+  }
+
+  .circle-chart {
+    height: 280px;
+    width: 280px;
+    background: conic-gradient(
+      #00574b 0% 44%,
+      #ffcc00 44% 56%,
+      #c9d1d3 56% 60%,
+      #6b7f85 60% 90%,
+      #c9d1d3 90% 100%
+    );
+    border-radius: 50%;
+    margin: 20px auto;
   }
 }
 
@@ -172,20 +200,6 @@ h2 {
 
 .overview-item:last-child {
   margin-right: 0;
-}
-
-.circle-chart {
-  height: 180px;
-  width: 180px;
-  background: conic-gradient(
-    #00574b 0% 44%,
-    #ffcc00 44% 56%,
-    #c9d1d3 56% 60%,
-    #6b7f85 60% 90%,
-    #c9d1d3 90% 100%
-  );
-  border-radius: 50%;
-  margin: 20px auto;
 }
 
 .account-list {

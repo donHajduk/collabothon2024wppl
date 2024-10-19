@@ -94,7 +94,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
     });
     const subscription = subsriptionscopy.find(
       (subscription) => subscription.currency == selectedCurrency
-    );
+    )!;
 
     const selectedMethods = Object.keys(notificationMethods).filter(
       (method) =>

@@ -1,9 +1,6 @@
 import ForexWidget from "@/components/ForexWidget";
 
-
-
 export default function Home() {
-
   return (
     <main className={"main-content overflow-hidden  "}>
       <h2>Overview of the Most Important Activities</h2>
@@ -26,7 +23,10 @@ export default function Home() {
       <div className="overview">
         <div className="overview-item">
           <h3>Total Balance of All Products: 12.345.678,90 €</h3>
-          <div className="circle-chart"></div>
+          <div className="circle-chart w-[96px] h-[96px] "></div>
+          <h4>Some general very important information</h4>
+          <h4>Nobody can see the content here, even this value: 593,00 €</h4>
+          <h4>Great to have this blur!</h4>
         </div>
         <div className="overview-item">
           <h3>Most Used Accounts</h3>
