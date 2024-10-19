@@ -21,21 +21,21 @@ function ForexWidget() {
         onClick={toggleDrawer}
       >
         <MapChart />
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-start items-center mb-4">
           <div className="text-xl font-bold">Foreign exchange</div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 ml-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-7"
+              className="size-6"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
+                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
               />
             </svg>
             <div className="flex items-center justify-center w-6 h-6 bg-yellow-400 text-black font-bold text-sm rounded-full">
@@ -50,6 +50,7 @@ function ForexWidget() {
             valueChange={0.12}
             comparedCurrency={"PLN"}
             currencyValue={0.24}
+            currencyAccountBalance={"103.031,24 PLN"}
           />
 
           <div className="border-b"></div>
@@ -58,6 +59,7 @@ function ForexWidget() {
             valueChange={0.12}
             comparedCurrency={"DOL"}
             currencyValue={1.03}
+            currencyAccountBalance={"1.021.213,21 DOL"}
           />
           <div className="border-b"></div>
           <MainWidgetPosition
@@ -65,6 +67,7 @@ function ForexWidget() {
             valueChange={-1.12}
             comparedCurrency={"CHF"}
             currencyValue={1.44}
+            currencyAccountBalance={"211.123,91 CHF"}
           />
         </div>
       </div>
