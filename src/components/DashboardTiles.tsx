@@ -71,14 +71,18 @@ const DashboardTiles: React.FC = () => {
                             )}
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-2 grid grid-cols-2 gap-2">
                             {currency.products.map((product, i) => (
                                 <div
                                     key={i}
                                     className={`flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 ${
-                                        i >= 0
+                                        i < 1
                                             ? 'bg-[#fbcb2d]'  // Primary button style for the first product
                                             : 'border-2 border-gray-900'  // Secondary button style for others
+                                    } ${
+                                        i < 1
+                                            ? 'col-span-2'  // Primary button style for the first product
+                                            : 'col-span-1'  // Secondary button style for others
                                     }`}
                                 >
                                     {product}
