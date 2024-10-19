@@ -1,5 +1,4 @@
 import React from "react";
-import { ScoreIndicator } from "../ScoreIndicator";
 import Two from "../../assets/2.svg";
 import One from "../../assets/1.svg";
 import Three from "../../assets/3.svg";

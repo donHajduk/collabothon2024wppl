@@ -1,7 +1,12 @@
 import { Subscription } from "@/model/subscription.type";
 import React, { useState } from "react";
-import { ScoreIndicator } from "@/components/ScoreIndicator";
 import { TileButton } from "./TileButton";
+import Image from "next/image";
+import One from "@/assets/1.svg";
+import Two from "@/assets/2.svg";
+import Three from "@/assets/3.svg";
+import Four from "@/assets/4.svg";
+import Five from "@/assets/5.svg";
 
 export interface CurrencyData {
   currency: string;
@@ -46,15 +51,35 @@ const LikeIconButton = ({
   );
 };
 
-const NotificationIconButton = ({ action }: any) => {
-  return (
+const NotificationIconButton = ({
+  action,
+  active,
+}: {
+  action: () => void;
+  active: boolean;
+}) => {
+  return active ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="size-6 text-commerz-500"
+    >
+      <path d="M5.85 3.5a.75.75 0 0 0-1.117-1 9.719 9.719 0 0 0-2.348 4.876.75.75 0 0 0 1.479.248A8.219 8.219 0 0 1 5.85 3.5ZM19.267 2.5a.75.75 0 1 0-1.118 1 8.22 8.22 0 0 1 1.987 4.124.75.75 0 0 0 1.48-.248A9.72 9.72 0 0 0 19.266 2.5Z" />
+      <path
+        fillRule="evenodd"
+        d="M12 2.25A6.75 6.75 0 0 0 5.25 9v.75a8.217 8.217 0 0 1-2.119 5.52.75.75 0 0 0 .298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 1 0 7.48 0 24.583 24.583 0 0 0 4.83-1.244.75.75 0 0 0 .298-1.205 8.217 8.217 0 0 1-2.118-5.52V9A6.75 6.75 0 0 0 12 2.25ZM9.75 18c0-.034 0-.067.002-.1a25.05 25.05 0 0 0 4.496 0l.002.1a2.25 2.25 0 1 1-4.5 0Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  ) : (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-6"
+      className={`size-6`}
       onClick={() => action()}
     >
       <path
@@ -94,7 +119,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
     });
     const subscription = subsriptionscopy.find(
       (subscription) => subscription.currency == selectedCurrency
-    )!;
+    );
 
     const selectedMethods = Object.keys(notificationMethods).filter(
       (method) =>
@@ -204,6 +229,24 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
         // Calculate the change
         const change = account.rate - account.previousRate;
         const percentageChange = (change / account.previousRate) * 100;
+        const sub = subscriptions.find((p) => p.currency === account.currency);
+
+        const defineChart = () => {
+          switch (account.recommendationScore) {
+            case 1:
+              return <Image src={One} alt={"test"} width={320} height={180} />;
+            case 2:
+              return <Image src={Two} alt={"test"} width={320} height={180} />;
+            case 3:
+              return (
+                <Image src={Three} alt={"test"} width={320} height={180} />
+              );
+            case 4:
+              return <Image src={Four} alt={"test"} width={320} height={180} />;
+            case 5:
+              return <Image src={Five} alt={"test"} width={320} height={180} />;
+          }
+        };
 
         return (
           <div
@@ -211,9 +254,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
             className="bg-white px-0 py-2  transition-shadow relative flex border-b-[1px] pb-4"
             style={{ width: "100%", height: "100%" }}
           >
-            <div className="px-2 py-6">
-              <ScoreIndicator value={account.recommendationScore} />
-            </div>
+            <div className="px-2">{defineChart()}</div>
 
             <div className={"ml-4"}>
               <div className="flex items-center justify-between mb-2">
@@ -231,6 +272,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
                   />
                   {/* Notification Bell */}
                   <NotificationIconButton
+                    active={sub?.isActive}
                     action={() => {
                       openModal(account.currency);
                     }}
@@ -241,7 +283,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({
               <div className="flex items-center mb-4">
                 {/* Current rate */}
                 <span className="text-xl font-bold text-black">
-                  {account.rate.toFixed(4)}
+                  {account.rate?.toFixed(4)}
                 </span>
 
                 {/* Change in value */}
