@@ -1,22 +1,55 @@
-import {Subscription} from '@/model/subscription.type';
-import React, {useState} from 'react';
+import { Subscription } from '@/model/subscription.type';
+import React, { useState } from 'react';
 import {ScoreIndicator} from "@/components/ScoreIndicator";
 
-interface CurrencyData {
+export interface CurrencyData {
     currency: string;
     rate: number;
     previousRate: number;
     recommendationScore: number;
+    liked: boolean;
+    change: number;
 }
 
 interface DashboardTilesProps {
     accounts: CurrencyData[];
     subscriptions: Subscription[];
     setSubscriptions: (subscriptions: Subscription[]) => void;
+    setLikedProduct: (currency: string) => void
+}
+
+const LikeIconButton = ({color, onClick}: { color?: "red", onClick: () => void }) => {
+
+    return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                stroke="currentColor" className="size-6"
+                onClick={onClick}
+    >
+        <path fill={color ?? ""} strokeLinecap="round" strokeLinejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
+    </svg>
+
+}
+
+const NotificationIconButton = ({action}: any) => {
+    return <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+        onClick={() => action()}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+        />
+    </svg>
 }
 
 
-const DashboardTiles: React.FC<DashboardTilesProps> = ({accounts, subscriptions, setSubscriptions}) => {
+const DashboardTiles: React.FC<DashboardTilesProps> = ({accounts, subscriptions, setSubscriptions, setLikedProduct}) => {
 
     const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
     const [percentageFall, setPercentageFall] = useState('');
@@ -35,58 +68,58 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({accounts, subscriptions,
     };
 
     const handleSubmit = () => {
+      
+      const selectedMethods = Object.keys(notificationMethods).filter(
+        (method) => notificationMethods[method as keyof typeof notificationMethods]
+      );
 
-        //TODO: zmiana stanu
+      const subscription = subscriptions.find(subscription => subscription.currency == selectedCurrency);
 
-        const selectedMethods = Object.keys(notificationMethods).filter(
-            (method) => notificationMethods[method as keyof typeof notificationMethods]
-        );
-
-        const subscription = subscriptions.find(subscription => subscription.currency == selectedCurrency);
-
-        if (subscription) {
-            //remove subscription
-            setSubscriptions(subscriptions.filter(sub => sub.currency != selectedCurrency))
-        } else {
-            //add subscription
-            const newsubscription = {
-                isActive: true,
-                currency: selectedCurrency,
-                percentageFall: percentageFall,
-                exchangeRateFall: exchangeRateFall,
-                notificationMethod: []
-            }
-
-            setSubscriptions([...subscriptions, newsubscription]);
+      if(subscription) {
+        //remove subscription
+        setSubscriptions(subscriptions.filter(sub => sub.currency != selectedCurrency))
+      } else {
+        console.log("selected methods:", selectedMethods)
+        //add subscription
+        const newsubscription = {
+            isActive: true,
+            currency: selectedCurrency,
+            percentageFall: percentageFall,
+            exchangeRateFall: exchangeRateFall,
+            notificationMethod: selectedMethods
         }
+    
+        setSubscriptions([...subscriptions, newsubscription]);
+      }
+      console.log(subscriptions);
 
-
-        console.log(subscriptions);
-
-        console.log('percentageFall:', percentageFall);
-        console.log('exchangeRateFall:', exchangeRateFall);
-        console.log('Selected Notification Methods:', selectedMethods);
-        setSelectedCurrency(null);
+      setSelectedCurrency(null);
 
     };
 
+
     const openModal = (currency: string) => {
-        const subscription = subscriptions.find(subscription => subscription.currency == currency);
-        console.log(subscription)
-        setPercentageFall(subscription ? subscription.percentageFall : '');
-        setExchangeRate(subscription ? subscription.exchangeRateFall : '');
-        if (subscription) {
-            setNotificationMethods({
-                sms: subscription.notificationMethod.includes('sms'),
-                mail: false,
-                push: false
+        console.log("onclick openmodal")
+        const subscription: Subscription | undefined = subscriptions.find(subscription => subscription.currency == currency);
+        console.log("openmodal subscription", subscription);
+        setPercentageFall(subscription ? subscription.percentageFall:'');
+        setExchangeRate(subscription ? subscription.exchangeRateFall:'');
+        if(subscription) {
+            console.log(subscription)
+            const flag1 = subscription.notificationMethod.find(elem => elem == "sms");
+            const flag2 = subscription.notificationMethod.find(elem => elem == "mail");
+            const flag3 = subscription.notificationMethod.find(elem => elem == "push");
+            console.log("flagi",flag1, flag2, flag3);
+            setNotificationMethods({sms: flag1,
+                    mail: flag2,
+                    push: flag3
             })
         } else {
             setNotificationMethods({
-                    sms: false,
-                    mail: false,
-                    push: false
-                }
+                sms: false,
+                mail: false,
+                push: false
+            }
             );
         }
         setSelectedCurrency(currency);
@@ -123,22 +156,14 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({accounts, subscriptions,
                                     {/*    Buy*/}
                                     {/*</span>*/}
                                 </div>
-                                {/* Notification Bell */}
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="size-6 cursor-pointer"
-                                    onClick={() => openModal(account.currency)}
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
-                                    />
-                                </svg>
+
+                                <div className={"flex space-x-3"}>
+                                    <LikeIconButton color={account.liked ? "red" : undefined} onClick={()=>setLikedProduct(account.currency)}/>
+                                    {/* Notification Bell */}
+                                    <NotificationIconButton action={() => {openModal(account.currency)}} />
+                                </div>
+
+
                             </div>
 
 
@@ -191,102 +216,90 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({accounts, subscriptions,
                 );
             })}
 
-            {selectedCurrency && (
-                <div
-                    onClick={() => {
-                        setSelectedCurrency(null);
-                    }}
-                    className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 transition-opacity duration-300 cursor-pointer">
-                    <div className="bg-white rounded-lg p-8 shadow-lg relative max-w-lg w-full animate-fadeIn">
-                        {/* Title */}
-                        <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">Subscribe for
-                            Notifications</h2>
+{selectedCurrency && (
+                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-white rounded-lg p-8 shadow-lg relative max-w-lg w-full">
+                        <h2 className="text-2xl font-bold mb-4">Subscribe for notifications</h2>
+                        <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2">
+      Percentage fall by
+    </label>
+    <input
+      type="text"
+      id="percentageFall"
+      value={percentageFall}
+      onChange={(e) => setPercentageFall(e.target.value)}
+      placeholder="Enter the percentage fall when you would like to be notified."
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
 
-                        {/* Percentage fall input */}
-                        <div className="mb-6">
-                            <label className="block text-gray-600 text-sm font-semibold mb-2">Percentage fall by</label>
-                            <input
-                                type="text"
-                                id="percentageFall"
-                                value={percentageFall}
-                                onChange={(e) => setPercentageFall(e.target.value)}
-                                placeholder="Enter percentage fall when you want to be notified"
-                                className=" appearance-none border-b border-gray-300 w-full py-2 px-4 text-gray-700 focus:outline-none focus:ring-0 focus:border-gray-900 transition duration-150"
-                            />
-                        </div>
+  {/* Second Input Field */}
+  <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+      Exchange rate fallen to
+    </label>
+    <input
+      type="text"
+      id="exchangeRate"
+      value={exchangeRateFall}
+      onChange={(e) => setExchangeRate(e.target.value)}
+      placeholder="Enter exchange rate when you would like to be notified."
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
 
-                        {/* Exchange rate fallen to input */}
-                        <div className="mb-6">
-                            <label className="block text-gray-600 text-sm font-semibold mb-2">Exchange rate fallen
-                                to</label>
-                            <input
-                                type="text"
-                                id="exchangeRate"
-                                value={exchangeRateFall}
-                                onChange={(e) => setExchangeRate(e.target.value)}
-                                placeholder="Enter exchange rate when you want to be notified"
-                                className=" appearance-none border-b border-gray-300 w-full py-2 px-4 text-gray-700 focus:outline-none  focus:ring-0 focus:border-gray-900 transition duration-150"
-                            />
-                        </div>
+  {/* Notification Methods (Checkboxes) */}
+  <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2">
+      Notification Method
+    </label>
+    <div className="flex gap-4">
+      <label className="inline-flex items-center">
+        <input
+          type="checkbox"
+          checked={notificationMethods.sms}
+          onClick={() => {
+            console.log("onSubmit sms");
+            handleCheckboxChange("sms")
+        }}
+          className="form-checkbox h-5 w-5 text-indigo-600"
+        />
+        <span className="ml-2 text-gray-700">SMS</span>
+      </label>
+      <label className="inline-flex items-center">
+        <input
+          type="checkbox"
+          checked={notificationMethods.mail}
+          onClick={() => handleCheckboxChange("mail")}
+          className="form-checkbox h-5 w-5 text-indigo-600"
+        />
+        <span className="ml-2 text-gray-700">Mail</span>
+      </label>
+      <label className="inline-flex items-center">
+        <input
+          type="checkbox"
+          checked={notificationMethods.push}
+          onClick={() => handleCheckboxChange("push")}
+          className="form-checkbox h-5 w-5 text-indigo-600"
+        />
+        <span className="ml-2 text-gray-700">Push</span>
+      </label>
+    </div>
+  </div>
 
-                        {/* Notification Methods */}
-                        <div className="mb-6">
-                            <label className="block text-gray-600 text-sm font-semibold mb-2">Notification
-                                Method</label>
-                            <div className="grid grid-cols-1 gap-4 py-2">
-                                <label className="inline-flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        className="form-checkbox h-5 w-5 text-indigo-600 focus:ring-indigo-500 transition duration-150"
-                                    />
-                                    <span className="ml-2 text-gray-700">SMS</span>
-                                </label>
-                                <label className="inline-flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        className="form-checkbox h-5 w-5 text-indigo-600 focus:ring-indigo-500 transition duration-150"
-                                    />
-                                    <span className="ml-2 text-gray-700">Mail</span>
-                                </label>
-                                <label className="inline-flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        className="form-checkbox h-5 w-5 text-indigo-600 focus:ring-indigo-500 transition duration-150"
-                                    />
-                                    <span className="ml-2 text-gray-700">Push</span>
-                                </label>
-                            </div>
-                        </div>
 
-                        {/* Subscribe/Unsubscribe Button */}
-                        <div className="grid grid-cols-1 gap-4">
-                            {/*/!* Cancel *!/*/}
-                            {/*<div*/}
-                            {/*    className="flex items-center justify-center gap-2 text-gray-900  font-semibold text-lg px-6 py-3 rounded-full w-full border-gray-900 border-2 from-indigo-500 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800 cursor-pointer transition-transform transform hover:scale-105"*/}
-                            {/*    onClick={() => handleSubmit()}*/}
-                            {/*>*/}
-                            {/*    Cancel*/}
-                            {/*    <span className="ml-2">→</span>*/}
-                            {/*</div>*/}
-                            <div
-                                className="flex items-center justify-center gap-2 text-gray-900  font-semibold text-lg px-6 py-3 rounded-full w-full bg-[#fbcb2d] from-indigo-500 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800 cursor-pointer transition-transform transform hover:scale-105"
-                                onClick={() => handleSubmit()}
-                            >
-                                {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) ? "Unsubscribe" : "Subscribe"}
+                        <div className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
+                        onClick={() => handleSubmit()}>
+                                {subscriptions.find(subscription => subscription.currency === selectedCurrency && subscription.isActive) ? "unsubscribe" : "subscribe"}
                                 <span className="ml-2">→</span>
                             </div>
-                        </div>
 
-                        {/* Close Button */}
                         <button
-                            className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 transition duration-150"
+                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                             onClick={closeModal}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                      d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
+                            &#10005; {/* Close Icon */}
                         </button>
                     </div>
                 </div>
