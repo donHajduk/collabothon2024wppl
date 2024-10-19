@@ -200,7 +200,7 @@ const DashboardTiles: React.FC<DashboardTilesProps> = ({accounts, subscriptions,
                                 <div
                                     className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105  "
                                 >
-                                    Exchange
+                                    Investments
                                     <span className="ml-2">→</span>
                                 </div>
                                 <div
