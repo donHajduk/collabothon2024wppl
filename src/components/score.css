@@ -15,8 +15,8 @@
 .indicator {
   margin: -5px;
   position: relative;
-  width: 50px;
-  height: 25px;
+  width: 80px;
+  height: 40px;
   overflow: hidden;
 }
 
@@ -29,7 +29,7 @@
   content: "";
   width: inherit;
   height: inherit;
-  border: 10px solid rgba(211, 211, 211, 0.3);
+  border: 20px solid rgba(211, 211, 211, 0.3);
   border-bottom: none;
   border-top-left-radius: 175px;
   border-top-right-radius: 175px;
@@ -41,7 +41,7 @@
   left: 0;
   width: inherit;
   height: inherit;
-  border: 10px solid;
+  border: 20px solid;
   border-top: none;
   border-bottom-left-radius: 175px;
   border-bottom-right-radius: 175px;
