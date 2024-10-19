@@ -4,16 +4,76 @@ import MapChart from "./mapComponent/shared/map/Map";
 import Drawer from "@/components/Drawer";
 import NewsFeed from "./NewsFeed";
 import DiversifiedProgressBar from "@/components/DiversifiedProgressBar";
-import DashboardTiles from "@/components/DashboardTiles";
+import DashboardTiles, { CurrencyData } from "@/components/DashboardTiles";
 import MainWidgetPosition from "./mainWidget/MainWidgetPosition";
+import { Subscription } from "@/model/subscription.type";
+
+const defaultProducts: Array<CurrencyData> = [
+  {
+    currency: "USD",
+    rate: 1.12,
+    previousRate: 1.11,
+    recommendationScore: 3,
+    liked: true,
+    change: 0.12,
+  },
+  {
+    currency: "CHF",
+    rate: 0.88,
+    previousRate: 0.87,
+    recommendationScore: 5,
+    liked: true,
+    change: 0.12,
+  },
+  {
+    currency: "GBP",
+    rate: 0.79,
+    previousRate: 0.8,
+    recommendationScore: 3,
+    liked: true,
+    change: 0.12,
+  },
+  {
+    currency: "CNY",
+    rate: 6.85,
+    previousRate: 6.82,
+    recommendationScore: 1,
+    liked: false,
+    change: 0.12,
+  },
+  {
+    currency: "PLN",
+    rate: 0.2,
+    previousRate: 0.18,
+    recommendationScore: 3,
+    liked: false,
+    change: 0.01,
+  },
+];
 
 function ForexWidget() {
   const [open, setOpen] = useState(true);
+  const [subscriptions, setSubscriptions] = useState<Subscription[] | []>([]);
+
+  const [products, setProducts] = useState<CurrencyData[] | []>(
+    defaultProducts
+  );
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const setLikedProduct = (currency: string) => {
+    const newProducts = [...products].map((value) => {
+      return { ...value };
+    });
+    const product = newProducts.find((value) => value.currency === currency);
+
+    if (product) {
+      product.liked = !product.liked;
+    }
+    setProducts(newProducts);
+  };
   return (
     <>
       <div
@@ -30,12 +90,12 @@ function ForexWidget() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6"
+              className="size-7"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
               />
             </svg>
             <div className="flex items-center justify-center w-6 h-6 bg-yellow-400 text-black font-bold text-sm rounded-full">
@@ -67,7 +127,7 @@ function ForexWidget() {
             valueChange={-1.12}
             comparedCurrency={"CHF"}
             currencyValue={1.44}
-            currencyAccountBalance={"211.123,91 CHF"}
+            currencyAccountBalance={"211,123,91 DOL"}
           />
         </div>
       </div>
@@ -102,53 +162,13 @@ function ForexWidget() {
             },
           ]}
         />
-        <NewsFeed />
         <DashboardTiles
-          accounts={[
-            {
-              currency: "USD",
-              rate: 1.12,
-              previousRate: 1.11,
-              recommendationScore: 5,
-            },
-            {
-              currency: "CHF",
-              rate: 0.88,
-              previousRate: 0.87,
-              recommendationScore: 3,
-            },
-            {
-              currency: "GBP",
-              rate: 0.79,
-              previousRate: 0.8,
-              recommendationScore: 4,
-            },
-            {
-              currency: "CNY",
-              rate: 6.85,
-              previousRate: 6.82,
-              recommendationScore: 2,
-            },
-            {
-              currency: "CHF",
-              rate: 0.88,
-              previousRate: 0.87,
-              recommendationScore: 3,
-            },
-            {
-              currency: "GBP",
-              rate: 0.79,
-              previousRate: 0.8,
-              recommendationScore: 4,
-            },
-            {
-              currency: "CNY",
-              rate: 6.85,
-              previousRate: 6.82,
-              recommendationScore: 2,
-            },
-          ]}
+          accounts={products}
+          subscriptions={subscriptions}
+          setSubscriptions={setSubscriptions}
+          setLikedProduct={setLikedProduct}
         />
+        <NewsFeed />
         {/*<DiversifiedProgressBar2/>*/}
         {/*<DashboardTiles2/>*/}
         {/*<ForexTable/>*/}
