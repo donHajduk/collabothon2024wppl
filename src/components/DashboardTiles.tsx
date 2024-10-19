@@ -3,55 +3,56 @@ import React from 'react';
 interface CurrencyData {
     currency: string;
     rate: number;
-    previousRate: number; // Added to store the previous rate
-    products: string[];
+    previousRate: number;
     recommendationScore: number;
 }
 
-const currencyData: CurrencyData[] = [
-    {currency: 'USD', rate: 1.12, previousRate: 1.11, products: ['Loan', 'Exchange', 'Forex'], recommendationScore: 5},
-    {currency: 'CHF', rate: 0.88, previousRate: 0.87, products: ['Loan', 'Exchange', 'Forex'], recommendationScore: 3},
-    {currency: 'GBP', rate: 0.79, previousRate: 0.80, products: ['Loan', 'Exchange', 'Forex'], recommendationScore: 4},
-    {currency: 'CNY', rate: 6.85, previousRate: 6.82, products: ['Loan', 'Exchange', 'Forex'], recommendationScore: 2},
-];
+interface DashboardTilesProps {
+    accounts: CurrencyData[];
+}
 
-// Sort by recommendationScore
-currencyData.sort((a, b) => b.recommendationScore - a.recommendationScore);
-
-const DashboardTiles: React.FC = () => {
+const DashboardTiles: React.FC<DashboardTilesProps> = ({ accounts }) => {
     return (
         <div className="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1">
-            {currencyData.map((currency, index) => {
+            {accounts.map((account, index) => {
                 // Calculate the change
-                const change = currency.rate - currency.previousRate;
-                const percentageChange = (change / currency.previousRate) * 100;
+                const change = account.rate - account.previousRate;
+                const percentageChange = (change / account.previousRate) * 100;
 
                 return (
                     <div
                         key={index}
                         className="bg-white p-8 rounded-lg shadow-md transition-shadow relative"
-                        style={{width: '100%', height: '100%'}}
+                        style={{ width: '100%', height: '100%' }}
                     >
                         <div className="flex items-center justify-between mb-2">
                             <div className="text-xl font-bold text-gray-700 flex gap-4">
-                                EUR/{currency.currency}
+                                EUR/{account.currency}
 
-                                <span
-                                    className="bg-green-100 text-green-600 font-semibold py-1 px-3 rounded-full text-xs">
-                                Buy
+                                <span className="bg-green-100 text-green-600 font-semibold py-1 px-3 rounded-full text-xs">
+                                    Buy
                                 </span>
                             </div>
                             {/* Notification Bell */}
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                                 stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"/>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="size-6"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+                                />
                             </svg>
                         </div>
 
                         <div className="flex items-center mb-4">
                             {/* Current rate */}
-                            <span className="text-2xl font-bold text-black">{currency.rate.toFixed(4)}</span>
+                            <span className="text-2xl font-bold text-black">{account.rate.toFixed(4)}</span>
 
                             {/* Change in value */}
                             <span
@@ -72,23 +73,24 @@ const DashboardTiles: React.FC = () => {
                         </div>
 
                         <div className="space-y-2 grid grid-cols-2 gap-2">
-                            {currency.products.map((product, i) => (
-                                <div
-                                    key={i}
-                                    className={`flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 ${
-                                        i < 1
-                                            ? 'bg-[#fbcb2d]'  // Primary button style for the first product
-                                            : 'border-2 border-gray-900'  // Secondary button style for others
-                                    } ${
-                                        i < 1
-                                            ? 'col-span-2'  // Primary button style for the first product
-                                            : 'col-span-1'  // Secondary button style for others
-                                    }`}
-                                >
-                                    {product}
-                                    <span className="ml-2">→</span>
-                                </div>
-                            ))}
+                            <div
+                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 bg-[#fbcb2d] col-span-2"
+                            >
+                                Loan
+                                <span className="ml-2">→</span>
+                            </div>
+                            <div
+                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
+                            >
+                                Exchange
+                                <span className="ml-2">→</span>
+                            </div>
+                            <div
+                                className="flex items-center justify-center gap-2 text-gray-900 font-semibold text-md px-6 py-3 rounded-full w-full cursor-pointer transition-transform transform hover:scale-105 border-2 border-gray-900 col-span-1"
+                            >
+                                Forex
+                                <span className="ml-2">→</span>
+                            </div>
                         </div>
                     </div>
                 );

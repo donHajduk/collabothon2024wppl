@@ -1,14 +1,11 @@
 "use client";
 import React, {useState} from "react";
 import MapChart from "./mapComponent/shared/map/Map";
-import ForexTable from "@/components/ForexTable";
 import Drawer from "@/components/Drawer";
 import NewsFeed from "./NewsFeed";
 import {ScoreIndicator} from "./ScoreIndicator";
 import DiversifiedProgressBar from "@/components/DiversifiedProgressBar";
 import DashboardTiles from "@/components/DashboardTiles";
-import DashboardTiles2 from "@/components/DashboardTiles2";
-import DiversifiedProgressBar2 from "@/components/DiversifiedProgressBar2";
 
 
 function ForexWidget() {
@@ -89,7 +86,12 @@ function ForexWidget() {
             <Drawer open={open} handleToggle={toggleDrawer} width={"50%"}>
                 <DiversifiedProgressBar/>
                 <NewsFeed/>
-                <DashboardTiles/>
+                <DashboardTiles accounts={[
+                    {currency: 'USD', rate: 1.12, previousRate: 1.11, recommendationScore: 5},
+                    {currency: 'CHF', rate: 0.88, previousRate: 0.87, recommendationScore: 3},
+                    {currency: 'GBP', rate: 0.79, previousRate: 0.80, recommendationScore: 4},
+                    {currency: 'CNY', rate: 6.85, previousRate: 6.82, recommendationScore: 2},
+                ]}/>
                 {/*<DiversifiedProgressBar2/>*/}
                 {/*<DashboardTiles2/>*/}
                 {/*<ForexTable/>*/}
