@@ -37,7 +37,7 @@ const Drawer: React.FC<DrawerProps> = ({
       >
         {/* Action Buttons */}
         <div className="flex justify-between items-center p-4 border-b">
-          <div onClick={handleToggle} className="flex items-center space-x-2">
+          <div onClick={handleToggle} className="flex items-center space-x-2 cursor-pointer">
             {/* Close Button */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
