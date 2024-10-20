@@ -50,7 +50,7 @@ const defaultProducts: Array<CurrencyData> = [
   {
     currency: "PLN",
     rate: 4.3,
-    previousRate: 4.31,
+    previousRate: 4.40,
     recommendationScore: 3,
     liked: false,
     change: 0.01,
@@ -59,7 +59,7 @@ const defaultProducts: Array<CurrencyData> = [
   {
     currency: "AUD",
     rate: 1.61,
-    previousRate: 1.62,
+    previousRate: 1.55,
     recommendationScore: 3,
     liked: false,
     change: 0.01,
